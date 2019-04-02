@@ -20,6 +20,16 @@ class Game {
     }
     this.stack.addCards(cards);
   }
+
+  getStack() {
+    return this.stack.getCards();
+  }
+
+  getPiles() {
+    console.log(this.piles[0].getAccessibleCards());
+
+    return this.piles;
+  }
 }
 
 export default Game;
