@@ -6,11 +6,8 @@ const Card = function(props) {
   console.log(card.unicode);
 
   return (
-    <div className="card">
+    <div className="card" id={card.suitType + " " + card.sequenceNumber}>
       {card.unicode}
-      {/* <div>{card.colour}</div>
-      <div>{card.sequenceNumber}</div>
-      <div>{card.suitType}</div> */}
     </div>
   );
 };

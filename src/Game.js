@@ -11,9 +11,9 @@ class Game {
 
   startGame() {
     const cards = lodash.shuffle(this.cards);
-    for (let i = 0; i < 7; i++) {
+    for (let index = 0; index < 7; index++) {
       const pile = new Pile();
-      const restrictedCards = cards.splice(0, i);
+      const restrictedCards = cards.splice(0, index);
       pile.addRestrictedCards(restrictedCards);
       pile.addAccessibleCard(cards.splice(0, 1));
       this.piles.push(pile);
