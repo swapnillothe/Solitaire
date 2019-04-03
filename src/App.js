@@ -3,7 +3,6 @@ import "./App.css";
 
 const Card = function(props) {
   const { card } = props;
-
   return (
     <div
       className="card"
@@ -31,10 +30,12 @@ const Piles = function(props) {
   const pilesHtml = [];
   for (let index = 0; index < piles.length; index++) {
     const pile = piles[index];
-    pilesHtml.push(<Cards cards={pile.getRestrictedCards()} key={index} />);
-    pilesHtml.push(
+    const pileHtml = [];
+    pileHtml.push(<Cards cards={pile.getRestrictedCards()} key={index} />);
+    pileHtml.push(
       <Cards cards={pile.getAccessibleCards()} key={"accessible" + index} />
     );
+    pilesHtml.push(<div className="pile"> {pileHtml}</div>);
   }
   return pilesHtml;
 };
