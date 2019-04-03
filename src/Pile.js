@@ -12,7 +12,6 @@ class Pile {
   addRestrictedCard(card) {
     this.restrictedCards.push(card);
   }
-
   getRestrictedCards() {
     return this.restrictedCards;
   }

@@ -18,16 +18,15 @@ class Game {
       pile.addAccessibleCard(cards.splice(0, 1));
       this.piles.push(pile);
     }
-    this.stack.addCards(cards);
+    this.stack.addAccessibleCard(cards.splice(0, 1));
+    this.stack.addRestrictedCards(cards);
   }
 
   getStack() {
-    return this.stack.getCards();
+    return this.stack;
   }
 
   getPiles() {
-    console.log(this.piles[0].getAccessibleCards());
-
     return this.piles;
   }
 }

@@ -1,12 +1,22 @@
 class Stack {
   constructor() {
-    this.cards = [];
+    this.accessibleCards = [];
+    this.restrictedCards = [];
   }
-  addCards(cards) {
-    this.cards = this.cards.concat(cards);
+  addRestrictedCards(cards) {
+    this.restrictedCards = this.restrictedCards.concat(cards);
   }
-  getCards() {
-    return this.cards;
+  addAccessibleCard(card) {
+    this.accessibleCards.push(card[0]);
+  }
+  addRestrictedCard(card) {
+    this.restrictedCards.push(card);
+  }
+  getRestrictedCards() {
+    return this.restrictedCards;
+  }
+  getAccessibleCards() {
+    return this.accessibleCards;
   }
 }
 

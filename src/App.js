@@ -2,11 +2,11 @@ import React from "react";
 import "./App.css";
 
 const Card = function(props) {
-  const { card } = props;
+  const { card, draggable } = props;
   return (
     <div
       className="card"
-      draggable="true"
+      draggable={draggable}
       onDragStart={drag}
       id={card.suitType + " " + card.sequenceNumber}
       style={{ color: card.colour }}
@@ -17,10 +17,12 @@ const Card = function(props) {
 };
 
 const Cards = function(props) {
-  const { cards } = props;
+  const { cards, draggable } = props;
   const cardsHtml = [];
   for (let index = 0; index < cards.length; index++) {
-    cardsHtml.push(<Card card={cards[index]} draggable key={index} />);
+    cardsHtml.push(
+      <Card card={cards[index]} draggable={draggable} key={index} />
+    );
   }
   return cardsHtml;
 };
@@ -31,9 +33,15 @@ const Piles = function(props) {
   for (let index = 0; index < piles.length; index++) {
     const pile = piles[index];
     const pileHtml = [];
-    pileHtml.push(<Cards cards={pile.getRestrictedCards()} key={index} />);
     pileHtml.push(
-      <Cards cards={pile.getAccessibleCards()} key={"accessible" + index} />
+      <Cards cards={pile.getRestrictedCards()} draggable={false} key={index} />
+    );
+    pileHtml.push(
+      <Cards
+        cards={pile.getAccessibleCards()}
+        draggable={true}
+        key={"accessible" + index}
+      />
     );
     pilesHtml.push(<div className="pile"> {pileHtml}</div>);
   }
@@ -54,19 +62,44 @@ const drop = function(ev) {
   ev.target.appendChild(document.getElementById(data));
 };
 
+const Stack = function(props) {
+  const { stack } = props;
+  const pileHtml = [];
+  pileHtml.push(
+    <Cards
+      cards={stack.getRestrictedCards()}
+      draggable={false}
+      key={"restriceted-stack"}
+    />
+  );
+  pileHtml.push(
+    <Cards
+      cards={stack.getAccessibleCards()}
+      draggable={true}
+      key={"accessible-stack"}
+    />
+  );
+  return pileHtml;
+};
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.game = props.game;
   }
 
+  handleDrop(e) {
+    drop(e);
+  }
+
   renderPage() {
+    console.log(this.game.getStack());
     return (
       <div>
         <div className="stack" id="stack">
-          <Cards cards={this.game.getStack()} />
+          <Stack stack={this.game.getStack()} />
         </div>
-        <div className="piles" onDrop={drop} onDragOver={allowDrop}>
+        <div className="piles" onDrop={this.handleDrop} onDragOver={allowDrop}>
           <Piles piles={this.game.getPiles()} />
         </div>
       </div>
