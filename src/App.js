@@ -43,7 +43,11 @@ const Piles = function(props) {
         key={"accessible" + index}
       />
     );
-    pilesHtml.push(<div className="pile"> {pileHtml}</div>);
+    pilesHtml.push(
+      <div className="pile" key={"pile" + index}>
+        {pileHtml}
+      </div>
+    );
   }
   return pilesHtml;
 };
@@ -99,23 +103,23 @@ const Deck = function(props) {
   const { heart, diamond, club, spade } = deck.getDeck();
   const deckHtml = [];
   deckHtml.push(
-    <div class="suit">
-      <Suit suit={heart} key={"heart"} />
+    <div className="suit" key={"heart"}>
+      <Suit suit={heart} />
     </div>
   );
   deckHtml.push(
-    <div className="suit">
-      <Suit suit={diamond} key={"diamond"} />
+    <div className="suit" key={"diamond"}>
+      <Suit suit={diamond} />
     </div>
   );
   deckHtml.push(
-    <div className="suit">
-      <Suit suit={club} key={"club"} />
+    <div className="suit" key={"club"}>
+      <Suit suit={club} />
     </div>
   );
   deckHtml.push(
-    <div className="suit">
-      <Suit suit={spade} key={"spade"} />
+    <div className="suit" key={"spade"}>
+      <Suit suit={spade} />
     </div>
   );
   return (
@@ -133,6 +137,7 @@ class App extends React.Component {
 
   handleDrop(e) {
     drop(e);
+    console.log(e.target.id);
   }
 
   renderPage() {
