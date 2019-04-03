@@ -3,10 +3,13 @@ import "./App.css";
 
 const Card = function(props) {
   const { card } = props;
-  console.log(card.unicode);
 
   return (
-    <div className="card" id={card.suitType + " " + card.sequenceNumber}>
+    <div
+      className="card"
+      id={card.suitType + " " + card.sequenceNumber}
+      style={{ color: card.colour }}
+    >
       {card.unicode}
     </div>
   );
@@ -16,7 +19,7 @@ const Cards = function(props) {
   const { cards } = props;
   const cardsHtml = [];
   for (let index = 0; index < cards.length; index++) {
-    cardsHtml.push(<Card card={cards[index]} key={index} />);
+    cardsHtml.push(<Card card={cards[index]} draggable key={index} />);
   }
   return cardsHtml;
 };
@@ -38,6 +41,19 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.game = props.game;
+    this.handleDrag = this.handleDrag.bind(this);
+    this.handleDrop = this.handleDrop.bind(this);
+  }
+
+  handleDrag(e) {
+    console.log(e.target.id);
+  }
+
+  handleDrop(event) {
+    var data = event.dataTransfer.getData("text/plain");
+    event.target.textContent = data;
+    event.preventDefault();
+    console.log(data);
   }
 
   renderPage() {
