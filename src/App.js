@@ -64,22 +64,65 @@ const drop = function(ev) {
 
 const Stack = function(props) {
   const { stack } = props;
-  const pileHtml = [];
-  pileHtml.push(
+  const stackHtml = [];
+  stackHtml.push(
     <Cards
       cards={stack.getRestrictedCards()}
       draggable={false}
       key={"restriceted-stack"}
     />
   );
-  pileHtml.push(
+  stackHtml.push(
     <Cards
       cards={stack.getAccessibleCards()}
       draggable={true}
       key={"accessible-stack"}
     />
   );
-  return pileHtml;
+  return stackHtml;
+};
+
+const Suit = function(props) {
+  const { suit } = props;
+  const suitHtml = [];
+  suitHtml.push(
+    <Cards cards={suit.getAccessibleCards()} key={"accessible-suit"} />
+  );
+  suitHtml.push(
+    <Cards cards={suit.getRestrictedCards()} key={"restricted-suit"} />
+  );
+  return suitHtml;
+};
+
+const Deck = function(props) {
+  const { deck } = props;
+  const { heart, diamond, club, spade } = deck.getDeck();
+  const deckHtml = [];
+  deckHtml.push(
+    <div class="suit">
+      <Suit suit={heart} key={"heart"} />
+    </div>
+  );
+  deckHtml.push(
+    <div className="suit">
+      <Suit suit={diamond} key={"diamond"} />
+    </div>
+  );
+  deckHtml.push(
+    <div className="suit">
+      <Suit suit={club} key={"club"} />
+    </div>
+  );
+  deckHtml.push(
+    <div className="suit">
+      <Suit suit={spade} key={"spade"} />
+    </div>
+  );
+  return (
+    <div className="deck" onDrop={drop} onDragOver={allowDrop}>
+      {deckHtml}
+    </div>
+  );
 };
 
 class App extends React.Component {
@@ -93,12 +136,16 @@ class App extends React.Component {
   }
 
   renderPage() {
-    console.log(this.game.getStack());
     return (
       <div>
-        <div className="stack" id="stack">
-          <Stack stack={this.game.getStack()} />
-        </div>
+        <section className="top-section">
+          <div className="stack" id="stack">
+            <Stack stack={this.game.getStack()} />
+          </div>
+          <div className="deck" id="deck">
+            <Deck deck={this.game.getDeck()} />
+          </div>
+        </section>
         <div className="piles" onDrop={this.handleDrop} onDragOver={allowDrop}>
           <Piles piles={this.game.getPiles()} />
         </div>

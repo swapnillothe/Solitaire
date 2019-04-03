@@ -5,6 +5,9 @@ class Deck {
   addCard(card, cardSuit) {
     this.deck[cardSuit].addCard(card);
   }
+  getDeck() {
+    return this.deck;
+  }
 }
 
 export default Deck;

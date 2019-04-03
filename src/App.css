@@ -9,7 +9,7 @@ body {
 .card {
   height: 100px;
   font-size: 100px;
-  margin:10px;
+  margin: 10px;
   background: wheat;
 }
 
@@ -19,9 +19,9 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  border:1px solid black;
-  margin:15px;
-  padding:15px;
+  border: 1px solid black;
+  margin: 15px;
+  padding: 15px;
 }
 
 .piles {
@@ -32,7 +32,7 @@ body {
   border: 1px solid black;
 }
 
-.pile{
+.pile {
   border: 1px solid black;
 }
 
@@ -40,4 +40,22 @@ body {
   border: 1px solid black;
   height: 100px;
   width: 100px;
+}
+
+.deck {
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  margin: 21px;
+  border: 1px solid black;
+  background: lightblue;
+  display: flex;
+  flex-direction: row;
+  height: 50%;
+  width: 35%;
+}
+
+.suit {
+  border: 1px solid black;
+  width: 25%;
 }

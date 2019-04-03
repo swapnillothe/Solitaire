@@ -29,6 +29,10 @@ class Game {
   getPiles() {
     return this.piles;
   }
+
+  getDeck() {
+    return this.deck;
+  }
 }
 
 export default Game;
