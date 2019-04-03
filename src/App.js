@@ -7,6 +7,8 @@ const Card = function(props) {
   return (
     <div
       className="card"
+      draggable="true"
+      onDragStart={drag}
       id={card.suitType + " " + card.sequenceNumber}
       style={{ color: card.colour }}
     >
@@ -37,32 +39,33 @@ const Piles = function(props) {
   return pilesHtml;
 };
 
+const allowDrop = function(ev) {
+  ev.preventDefault();
+};
+
+const drag = function(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+};
+
+const drop = function(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+};
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.game = props.game;
-    this.handleDrag = this.handleDrag.bind(this);
-    this.handleDrop = this.handleDrop.bind(this);
-  }
-
-  handleDrag(e) {
-    console.log(e.target.id);
-  }
-
-  handleDrop(event) {
-    var data = event.dataTransfer.getData("text/plain");
-    event.target.textContent = data;
-    event.preventDefault();
-    console.log(data);
   }
 
   renderPage() {
     return (
       <div>
-        <div className="stack">
+        <div className="stack" id="stack">
           <Cards cards={this.game.getStack()} />
         </div>
-        <div className="piles">
+        <div className="piles" onDrop={drop} onDragOver={allowDrop}>
           <Piles piles={this.game.getPiles()} />
         </div>
       </div>
