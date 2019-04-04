@@ -9,6 +9,9 @@ class Stack {
   addAccessibleCard(card) {
     this.accessibleCards.push(card[0]);
   }
+  addAccessibleCards(cards) {
+    this.accessibleCards = this.accessibleCards.concat(cards);
+  }
   addRestrictedCard(card) {
     this.restrictedCards.push(card);
   }

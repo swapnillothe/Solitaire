@@ -19,7 +19,7 @@ class Game {
       this.piles.push(pile);
     }
     this.stack.addAccessibleCard(cards.splice(0, 1));
-    this.stack.addRestrictedCards(cards);
+    this.stack.addAccessibleCards(cards);
   }
 
   getStack() {
@@ -37,10 +37,13 @@ class Game {
   isDroppable(cardDetails, dropLocation) {
     const card = JSON.parse(cardDetails);
     if (this.deck.isAbleToDrop(card, dropLocation)) {
-      return this.deck.isAbleToDrop(card, dropLocation);
+      return true;
     }
     const pileNumber = dropLocation.split(" ")[1];
-    return this.piles[pileNumber].isAbleToDrop(card);
+    if (pileNumber) {
+      return this.piles[pileNumber].isAbleToDrop(card);
+    }
+    return false;
   }
 }
 

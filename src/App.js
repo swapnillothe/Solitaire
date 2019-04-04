@@ -96,10 +96,18 @@ const Suit = function(props) {
   const { suit } = props;
   const suitHtml = [];
   suitHtml.push(
-    <Cards cards={suit.getAccessibleCards()} key={"accessible-suit"} />
+    <Cards
+      cards={suit.getAccessibleCards()}
+      draggable={true}
+      key={"accessible-suit"}
+    />
   );
   suitHtml.push(
-    <Cards cards={suit.getRestrictedCards()} key={"restricted-suit"} />
+    <Cards
+      cards={suit.getRestrictedCards()}
+      draggable={false}
+      key={"restricted-suit"}
+    />
   );
   return suitHtml;
 };
@@ -147,9 +155,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.game = props.game;
+    this.state = { piles: this.game.piles, stack: this.game.stack };
   }
 
   handleDrop(e) {
+    this.setState(state => {
+      state.piles = this.game.piles;
+      state.stack = this.game.stack;
+    });
     drop(this.game, e);
   }
 

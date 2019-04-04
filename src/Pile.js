@@ -18,8 +18,17 @@ class Pile {
   getAccessibleCards() {
     return this.accessibleCards;
   }
-  isAbleToDrop() {
-    return true;
+
+  isAbleToDrop(card) {
+    if (
+      this.accessibleCards[0].sequenceNumber - 1 === card.sequenceNumber &&
+      this.accessibleCards[0].colour !== card.colour
+    ) {
+      this.restrictedCards = this.restrictedCards.concat(this.accessibleCards);
+      this.accessibleCards = [card];
+      return true;
+    }
+    return false;
   }
 }
 
