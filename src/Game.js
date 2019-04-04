@@ -36,7 +36,11 @@ class Game {
 
   isDroppable(cardDetails, dropLocation) {
     const card = JSON.parse(cardDetails);
-    return this.deck.isAbleToDrop(card, dropLocation);
+    if (this.deck.isAbleToDrop(card, dropLocation)) {
+      return this.deck.isAbleToDrop(card, dropLocation);
+    }
+    const pileNumber = dropLocation.split(" ")[1];
+    return this.piles[pileNumber].isAbleToDrop(card);
   }
 }
 

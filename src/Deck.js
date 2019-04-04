@@ -11,8 +11,6 @@ class Deck {
   }
 
   isAbleToDrop(cardDetails, dropLocation) {
-    console.log(this.deck[dropLocation]);
-
     if (this.deck[dropLocation]) {
       return this.deck[dropLocation].dropCard(cardDetails);
     }

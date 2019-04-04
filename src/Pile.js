@@ -18,6 +18,9 @@ class Pile {
   getAccessibleCards() {
     return this.accessibleCards;
   }
+  isAbleToDrop() {
+    return true;
+  }
 }
 
 export default Pile;

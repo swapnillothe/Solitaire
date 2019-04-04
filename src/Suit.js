@@ -20,11 +20,18 @@ class Suit {
   getAccessibleCards() {
     return this.accessibleCards;
   }
-  dropCard(cardDetails, dropLocation) {
-    console.log(JSON.stringify(cardDetails) + "card details");
-    console.log(this.suitType + " suit type");
 
-    return cardDetails.suitType === this.suitType;
+  validateCard(card) {
+    if (this.getAccessibleCards.length) {
+      return this.accessibleCards[0].sequenceNumber + 1 === card.sequenceNumber;
+    }
+    return 0 === card.sequenceNumber;
+  }
+
+  dropCard(card) {
+    if (card.suitType === this.suitType && this.validateCard(card)) {
+      return true;
+    }
   }
 }
 
