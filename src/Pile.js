@@ -21,11 +21,14 @@ class Pile {
 
   isAbleToDrop(card) {
     if (
-      this.accessibleCards[0].sequenceNumber - 1 === card.sequenceNumber &&
-      this.accessibleCards[0].colour !== card.colour
+      this.accessibleCards[this.accessibleCards.length - 1].sequenceNumber -
+        1 ===
+        card.sequenceNumber &&
+      this.accessibleCards[this.accessibleCards.length - 1].colour !==
+        card.colour
     ) {
       this.restrictedCards = this.restrictedCards.concat(this.accessibleCards);
-      this.accessibleCards = [card];
+      this.accessibleCards.push(card);
       return true;
     }
     return false;

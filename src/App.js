@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import { stat } from "fs";
 
 const Card = function(props) {
   const { card, draggable } = props;
@@ -155,13 +156,18 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.game = props.game;
-    this.state = { piles: this.game.piles, stack: this.game.stack };
+    this.state = {
+      piles: this.game.piles,
+      stack: this.game.stack,
+      deck: this.game.deck
+    };
   }
 
   handleDrop(e) {
     this.setState(state => {
       state.piles = this.game.piles;
       state.stack = this.game.stack;
+      state.deck = this.game.deck;
     });
     drop(this.game, e);
   }

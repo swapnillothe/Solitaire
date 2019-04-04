@@ -5,15 +5,7 @@ class Suit {
     this.accessibleCards = [];
     this.restrictedCards = [];
   }
-  // addRestrictedCards(cards) {
-  //   this.restrictedCards = this.restrictedCards.concat(cards);
-  // }
-  // addAccessibleCard(card) {
-  //   this.accessibleCards.push(card[0]);
-  // }
-  // addRestrictedCard(card) {
-  //   this.restrictedCards.push(card);
-  // }
+
   getRestrictedCards() {
     return this.restrictedCards;
   }
@@ -22,9 +14,11 @@ class Suit {
   }
 
   validateCard(card) {
-    if (this.accessibleCards.length) {
-      this.updateCards(card);
-      return this.accessibleCards[0].sequenceNumber + 1 === card.sequenceNumber;
+    if (this.accessibleCards.length === 1) {
+      if (this.accessibleCards[0].sequenceNumber + 1 === card.sequenceNumber) {
+        this.updateCards(card);
+        return true;
+      }
     }
     this.accessibleCards = [card];
     return 0 === card.sequenceNumber;
@@ -32,7 +26,7 @@ class Suit {
 
   updateCards(card) {
     this.restrictedCards.push(this.accessibleCards[0]);
-    this.accessibleCards.push(card);
+    this.accessibleCards = [card];
   }
 
   dropCard(card) {
