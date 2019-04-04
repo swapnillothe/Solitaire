@@ -34,8 +34,9 @@ class Game {
     return this.deck;
   }
 
-  isDroppable(cardDetails) {
-    return false;
+  isDroppable(cardDetails, dropLocation) {
+    const card = JSON.parse(cardDetails);
+    return this.deck.isAbleToDrop(card, dropLocation);
   }
 }
 

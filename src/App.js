@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import { allResolved } from "q";
 
 const Card = function(props) {
   const { card, draggable } = props;
@@ -46,7 +45,7 @@ const Piles = function(props) {
       />
     );
     pilesHtml.push(
-      <div className="pile" key={"pile" + index}>
+      <div className="pile" id={"pile " + index} key={"pile" + index}>
         {pileHtml}
       </div>
     );
@@ -65,9 +64,10 @@ const drag = function(card, ev) {
 
 const drop = function(game, ev) {
   ev.preventDefault();
+  const dropLocation = ev.target.id;
   const data = ev.dataTransfer.getData("text");
   const card = ev.dataTransfer.getData("cardDetails");
-  if (game.isDroppable(card)) {
+  if (game.isDroppable(card, dropLocation)) {
     ev.target.appendChild(document.getElementById(data));
   }
 };
@@ -109,22 +109,26 @@ const Deck = function(props) {
   const { heart, diamond, club, spade } = deck.getDeck();
   const deckHtml = [];
   deckHtml.push(
-    <div className="suit" key={"heart"}>
+    <div className="suit" key={"heart"} id="heart">
+      heart
       <Suit suit={heart} />
     </div>
   );
   deckHtml.push(
-    <div className="suit" key={"diamond"}>
+    <div className="suit" key={"diamond"} id="diamond">
+      diamond
       <Suit suit={diamond} />
     </div>
   );
   deckHtml.push(
-    <div className="suit" key={"club"}>
+    <div className="suit" key={"club"} id="club">
+      club
       <Suit suit={club} />
     </div>
   );
   deckHtml.push(
-    <div className="suit" key={"spade"}>
+    <div className="suit" key={"spade"} id="spade">
+      spade
       <Suit suit={spade} />
     </div>
   );
@@ -162,7 +166,7 @@ class App extends React.Component {
         </section>
         <div
           className="piles"
-          onDrop={this.handleDrop}
+          onDrop={this.handleDrop.bind(this)}
           onDragOver={allowDrop.bind(null, this.game)}
         >
           <Piles piles={this.game.getPiles()} game={this.game} />

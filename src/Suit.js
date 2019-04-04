@@ -20,6 +20,12 @@ class Suit {
   getAccessibleCards() {
     return this.accessibleCards;
   }
+  dropCard(cardDetails, dropLocation) {
+    console.log(JSON.stringify(cardDetails) + "card details");
+    console.log(this.suitType + " suit type");
+
+    return cardDetails.suitType === this.suitType;
+  }
 }
 
 export default Suit;

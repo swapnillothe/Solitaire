@@ -5,8 +5,18 @@ class Deck {
   addCard(card, cardSuit) {
     this.deck[cardSuit].addCard(card);
   }
+
   getDeck() {
     return this.deck;
+  }
+
+  isAbleToDrop(cardDetails, dropLocation) {
+    console.log(this.deck[dropLocation]);
+
+    if (this.deck[dropLocation]) {
+      return this.deck[dropLocation].dropCard(cardDetails);
+    }
+    return false;
   }
 }
 
