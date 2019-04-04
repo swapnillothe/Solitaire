@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import { allResolved } from "q";
 
 const Card = function(props) {
   const { card, draggable } = props;
@@ -7,9 +8,10 @@ const Card = function(props) {
     <div
       className="card"
       draggable={draggable}
-      onDragStart={drag}
+      onDragStart={drag.bind(null, card)}
       id={card.suitType + " " + card.sequenceNumber}
       style={{ color: card.colour }}
+      card={card}
     >
       {card.unicode}
     </div>
@@ -52,18 +54,22 @@ const Piles = function(props) {
   return pilesHtml;
 };
 
-const allowDrop = function(ev) {
+const allowDrop = function(game, ev) {
   ev.preventDefault();
 };
 
-const drag = function(ev) {
+const drag = function(card, ev) {
   ev.dataTransfer.setData("text", ev.target.id);
+  ev.dataTransfer.setData("cardDetails", JSON.stringify(card));
 };
 
-const drop = function(ev) {
+const drop = function(game, ev) {
   ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data));
+  const data = ev.dataTransfer.getData("text");
+  const card = ev.dataTransfer.getData("cardDetails");
+  if (game.isDroppable(card)) {
+    ev.target.appendChild(document.getElementById(data));
+  }
 };
 
 const Stack = function(props) {
@@ -99,7 +105,7 @@ const Suit = function(props) {
 };
 
 const Deck = function(props) {
-  const { deck } = props;
+  const { deck, game } = props;
   const { heart, diamond, club, spade } = deck.getDeck();
   const deckHtml = [];
   deckHtml.push(
@@ -123,7 +129,11 @@ const Deck = function(props) {
     </div>
   );
   return (
-    <div className="deck" onDrop={drop} onDragOver={allowDrop}>
+    <div
+      className="deck"
+      onDrop={drop.bind(null, game)}
+      onDragOver={allowDrop.bind(null, game)}
+    >
       {deckHtml}
     </div>
   );
@@ -136,8 +146,7 @@ class App extends React.Component {
   }
 
   handleDrop(e) {
-    drop(e);
-    console.log(e.target.id);
+    drop(this.game, e);
   }
 
   renderPage() {
@@ -145,14 +154,18 @@ class App extends React.Component {
       <div>
         <section className="top-section">
           <div className="stack" id="stack">
-            <Stack stack={this.game.getStack()} />
+            <Stack stack={this.game.getStack()} game={this.game} />
           </div>
           <div className="deck" id="deck">
-            <Deck deck={this.game.getDeck()} />
+            <Deck deck={this.game.getDeck()} game={this.game} />
           </div>
         </section>
-        <div className="piles" onDrop={this.handleDrop} onDragOver={allowDrop}>
-          <Piles piles={this.game.getPiles()} />
+        <div
+          className="piles"
+          onDrop={this.handleDrop}
+          onDragOver={allowDrop.bind(null, this.game)}
+        >
+          <Piles piles={this.game.getPiles()} game={this.game} />
         </div>
       </div>
     );

@@ -33,6 +33,10 @@ class Game {
   getDeck() {
     return this.deck;
   }
+
+  isDroppable(cardDetails) {
+    return false;
+  }
 }
 
 export default Game;
