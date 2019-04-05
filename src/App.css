@@ -59,6 +59,7 @@ body {
 
 .deck {
   position: fixed;
+  top: 0px;
   right: 0px;
   background: white;
   display: flex;
