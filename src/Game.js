@@ -40,7 +40,7 @@ class Game {
       if (this.piles[dragLocation]) {
         this.piles[dragLocation].moveCardToDeck();
       }
-      if (draggingFrom === "stack") {
+      if (draggingFrom === "open-card") {
         this.stack.updateStack(card);
       }
       return true;
@@ -52,12 +52,13 @@ class Game {
     const card = JSON.parse(cardDetails);
     const dragLocation = card.draggingFrom.split(" ")[1];
     const draggingFrom = card.draggingFrom.split(" ")[0];
-
+    console.log("drag location " + card.draggingFrom);
+    console.log("dropping at " + dropLocation);
     if (this.deck.isAbleToDrop(card, dropLocation)) {
       if (this.piles[dragLocation]) {
         this.piles[dragLocation].moveCardToDeck();
       }
-      if (draggingFrom === "stack") {
+      if (draggingFrom === "open-card") {
         this.stack.updateStack(card);
       }
       return true;

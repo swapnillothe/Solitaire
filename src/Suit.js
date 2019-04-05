@@ -14,14 +14,17 @@ class Suit {
   }
 
   validateCard(card) {
+    console.log(this.accessibleCards.length);
     if (this.accessibleCards.length === 1) {
       if (this.accessibleCards[0].sequenceNumber + 1 === card.sequenceNumber) {
         this.updateCards(card);
         return true;
       }
     }
-    this.accessibleCards = [card];
-    return 0 === card.sequenceNumber;
+    if (0 === card.sequenceNumber) {
+      this.accessibleCards = [card];
+    }
+    return true;
   }
 
   updateCards(card) {

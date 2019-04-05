@@ -15,14 +15,9 @@ const drop = function(app, ev) {
   const game = app.game;
   ev.preventDefault();
   const dropLocation = ev.target.id;
-  const data = ev.dataTransfer.getData("text");
+  console.log(ev.target);
   const card = ev.dataTransfer.getData("cardDetails");
-  if (game.drop(card, dropLocation)) {
-    const element = document.getElementById(data);
-    if (ev.target.parentNode.id === "deck") {
-      element.className = "card-on-suit";
-    }
-  }
+  game.drop(card, dropLocation);
   app.updateState();
 };
 
@@ -60,7 +55,7 @@ const Cards = function(props) {
 };
 
 const Piles = function(props) {
-  const { piles } = props;
+  const { piles, classname } = props;
   const pilesHtml = [];
   for (let index = 0; index < piles.length; index++) {
     const pile = piles[index];
@@ -71,7 +66,7 @@ const Piles = function(props) {
         draggable={false}
         key={index}
         unicode={"\uD83C\uDCA0"}
-        classname="card"
+        classname={classname}
       />
     );
     pileHtml.push(
@@ -79,7 +74,7 @@ const Piles = function(props) {
         cards={pile.getAccessibleCards()}
         draggable={true}
         key={"accessible" + index}
-        classname="card"
+        classname={classname}
       />
     );
     pilesHtml.push(
@@ -99,7 +94,7 @@ const Stack = function(props) {
       cards={stack.getAccessibleCards()}
       draggable={true}
       key={"accessible-stack"}
-      classname="card"
+      classname="card-on-stack"
     />
   );
   return stackHtml;
@@ -113,7 +108,7 @@ const Suit = function(props) {
       cards={suit.getAccessibleCards()}
       draggable={true}
       key={"accessible-suit"}
-      classname="card"
+      classname="card-on-suit"
     />
   );
   suitHtml.push(
@@ -121,7 +116,7 @@ const Suit = function(props) {
       cards={suit.getRestrictedCards()}
       draggable={false}
       key={"restricted-suit"}
-      classname="card"
+      classname="card-on-suit"
     />
   );
   return suitHtml;

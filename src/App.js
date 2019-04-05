@@ -18,7 +18,7 @@ class App extends React.Component {
 
   handleDrop(e) {
     drop(this, e);
-    this.updateState();
+    // this.updateState();
   }
 
   updateState() {
@@ -35,7 +35,6 @@ class App extends React.Component {
     let cards = (
       <Cards
         cards={this.state.openCards}
-        hello={"hello"}
         draggable={true}
         classname="card-on-stack"
       />
@@ -53,7 +52,7 @@ class App extends React.Component {
                 card={{ colour: " black" }}
                 unicode={"\uD83C\uDCA0"}
                 draggable={false}
-                classname="card"
+                classname="card-on-stack"
               />
             </div>
             <div id="open-card" className="open-card">
@@ -65,14 +64,22 @@ class App extends React.Component {
               />
             </div>
           </div>
-          <Deck deck={this.game.getDeck()} app={this} />
+          <Deck
+            deck={this.game.getDeck()}
+            app={this}
+            classname={"card-on-deck"}
+          />
         </section>
         <div
           className="piles"
           onDrop={this.handleDrop.bind(this)}
           onDragOver={allowDrop.bind(null, this.game)}
         >
-          <Piles piles={this.game.getPiles()} game={this.game} />
+          <Piles
+            piles={this.game.getPiles()}
+            game={this.game}
+            classname={"pile-card"}
+          />
         </div>
       </div>
     );
