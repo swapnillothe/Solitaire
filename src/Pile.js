@@ -20,21 +20,22 @@ class Pile {
   }
 
   moveCardToDeck() {
-    if (this.accessibleCards.length === 0) {
+    if (this.accessibleCards.length === 1) {
       this.accessibleCards.pop();
-      this.accessibleCards(this.restrictedCards.pop());
+      this.accessibleCards.push(this.restrictedCards.pop());
+      return;
+    }
+    if (this.accessibleCards.length > 1) {
+      this.accessibleCards.pop();
     }
   }
 
   isAbleToDrop(card) {
+    const length = this.accessibleCards.length - 1;
     if (
-      this.accessibleCards[this.accessibleCards.length - 1].sequenceNumber -
-        1 ===
-        card.sequenceNumber &&
-      this.accessibleCards[this.accessibleCards.length - 1].colour !==
-        card.colour
+      this.accessibleCards[length].sequenceNumber - 1 === card.sequenceNumber &&
+      this.accessibleCards[length].colour !== card.colour
     ) {
-      this.restrictedCards = this.restrictedCards.concat(this.accessibleCards);
       this.accessibleCards.push(card);
       return true;
     }

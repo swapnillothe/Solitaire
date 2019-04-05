@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./App.css";
-import { Stack, Deck, Piles, drop, allowDrop, Cards, Card } from "./display";
+import { Deck, Piles, drop, allowDrop, Cards, Card } from "./display";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.game = props.game;
+    this.updateState = this.updateState.bind(this);
     this.state = {
       piles: this.game.piles,
       stack: this.game.stack,
@@ -16,13 +17,17 @@ class App extends React.Component {
   }
 
   handleDrop(e) {
-    drop(this.game, e);
+    drop(this, e);
+    this.updateState();
+  }
+
+  updateState() {
     this.setState(state => {
       state.piles = this.game.piles;
       state.stack = this.game.stack;
       state.deck = this.game.deck;
-      state.openCards = this.game.getStack().getDrawnCards();
     });
+    ReactDOM.render(this.renderPage(), document.getElementById("game-root"));
   }
 
   getCard() {
@@ -40,7 +45,7 @@ class App extends React.Component {
 
   renderPage() {
     return (
-      <div>
+      <div id="game-root">
         <section className="top-section">
           <div className="stack" id="stack">
             <div className="clickable-div" onClick={this.getCard.bind(this)}>
@@ -60,7 +65,7 @@ class App extends React.Component {
               />
             </div>
           </div>
-          <Deck deck={this.game.getDeck()} game={this.game} />
+          <Deck deck={this.game.getDeck()} app={this} />
         </section>
         <div
           className="piles"

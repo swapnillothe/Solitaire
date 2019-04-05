@@ -11,7 +11,8 @@ const allowDrop = function(game, ev) {
   ev.preventDefault();
 };
 
-const drop = function(game, ev) {
+const drop = function(app, ev) {
+  const game = app.game;
   ev.preventDefault();
   const dropLocation = ev.target.id;
   const data = ev.dataTransfer.getData("text");
@@ -21,8 +22,8 @@ const drop = function(game, ev) {
     if (ev.target.parentNode.id === "deck") {
       element.className = "card-on-suit";
     }
-    ev.target.appendChild(element);
   }
+  app.updateState();
 };
 
 const Card = function(props) {
@@ -127,7 +128,7 @@ const Suit = function(props) {
 };
 
 const Deck = function(props) {
-  const { deck, game } = props;
+  const { deck, app } = props;
   const { heart, diamond, club, spade } = deck.getDeck();
   const deckHtml = [];
   deckHtml.push(
@@ -158,8 +159,8 @@ const Deck = function(props) {
     <div
       className="deck"
       id="deck"
-      onDrop={drop.bind(null, game)}
-      onDragOver={allowDrop.bind(null, game)}
+      onDrop={drop.bind(null, app)}
+      onDragOver={allowDrop.bind(null, app.game)}
     >
       {deckHtml}
     </div>
