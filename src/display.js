@@ -26,27 +26,33 @@ const drop = function(game, ev) {
 };
 
 const Card = function(props) {
-  const { card, draggable } = props;
+  let { card, draggable, unicode, classname } = props;
+  if (!unicode) unicode = card.unicode;
   return (
     <div
-      className="card"
+      className={classname}
       draggable={draggable}
       onDragStart={drag.bind(null, card)}
       id={card.suitType + " " + card.sequenceNumber}
       style={{ color: card.colour }}
-      // card={card}
     >
-      {card.unicode}
+      {unicode}
     </div>
   );
 };
 
 const Cards = function(props) {
-  const { cards, draggable } = props;
+  const { cards, draggable, unicode, classname } = props;
   const cardsHtml = [];
   for (let index = 0; index < cards.length; index++) {
     cardsHtml.push(
-      <Card card={cards[index]} draggable={draggable} key={index} />
+      <Card
+        card={cards[index]}
+        draggable={draggable}
+        key={index}
+        unicode={unicode}
+        classname={classname}
+      />
     );
   }
   return cardsHtml;
@@ -59,13 +65,20 @@ const Piles = function(props) {
     const pile = piles[index];
     const pileHtml = [];
     pileHtml.push(
-      <Cards cards={pile.getRestrictedCards()} draggable={false} key={index} />
+      <Cards
+        cards={pile.getRestrictedCards()}
+        draggable={false}
+        key={index}
+        unicode={"\uD83C\uDCA0"}
+        classname="card"
+      />
     );
     pileHtml.push(
       <Cards
         cards={pile.getAccessibleCards()}
         draggable={true}
         key={"accessible" + index}
+        classname="card"
       />
     );
     pilesHtml.push(
@@ -85,6 +98,7 @@ const Stack = function(props) {
       cards={stack.getAccessibleCards()}
       draggable={true}
       key={"accessible-stack"}
+      classname="card"
     />
   );
   return stackHtml;
@@ -98,6 +112,7 @@ const Suit = function(props) {
       cards={suit.getAccessibleCards()}
       draggable={true}
       key={"accessible-suit"}
+      classname="card"
     />
   );
   suitHtml.push(
@@ -105,6 +120,7 @@ const Suit = function(props) {
       cards={suit.getRestrictedCards()}
       draggable={false}
       key={"restricted-suit"}
+      classname="card"
     />
   );
   return suitHtml;
