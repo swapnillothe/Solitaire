@@ -25,12 +25,10 @@ class App extends React.Component {
   renderPage() {
     return (
       <div>
-        <section className="top-section">
-          <div className="stack" id="stack">
-            <Stack stack={this.game.getStack()} game={this.game} />
-          </div>
-          <Deck deck={this.game.getDeck()} game={this.game} />
-        </section>
+        <div className="stack" id="stack">
+          <Stack stack={this.game.getStack()} game={this.game} />
+        </div>
+        <Deck deck={this.game.getDeck()} game={this.game} />
         <div
           className="piles"
           onDrop={this.handleDrop.bind(this)}

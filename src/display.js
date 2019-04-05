@@ -17,7 +17,11 @@ const drop = function(game, ev) {
   const data = ev.dataTransfer.getData("text");
   const card = ev.dataTransfer.getData("cardDetails");
   if (game.drop(card, dropLocation)) {
-    ev.target.appendChild(document.getElementById(data));
+    const element = document.getElementById(data);
+    if (ev.target.parentNode.id === "deck") {
+      element.className = "card-on-suit";
+    }
+    ev.target.appendChild(element);
   }
 };
 
@@ -137,6 +141,7 @@ const Deck = function(props) {
   return (
     <div
       className="deck"
+      id="deck"
       onDrop={drop.bind(null, game)}
       onDragOver={allowDrop.bind(null, game)}
     >

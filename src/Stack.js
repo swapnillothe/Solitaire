@@ -5,7 +5,6 @@ class Stack {
 
   addAccessibleCards(cards) {
     this.accessibleCards = cards;
-    console.log("initial accessible cards" + this.accessibleCards.length);
   }
 
   getAccessibleCards() {
@@ -22,7 +21,6 @@ class Stack {
         this.accessibleCards.splice(index, 1);
       }
     }
-    console.log(this.accessibleCards.length);
   }
 }
 
