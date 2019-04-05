@@ -18,7 +18,6 @@ class Game {
       pile.addAccessibleCard(cards.splice(0, 1));
       this.piles.push(pile);
     }
-    this.stack.addAccessibleCard(cards.splice(0, 1));
     this.stack.addAccessibleCards(cards);
   }
 

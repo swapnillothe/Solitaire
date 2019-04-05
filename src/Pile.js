@@ -23,15 +23,10 @@ class Pile {
     if (this.accessibleCards.length === 0) {
       this.accessibleCards.pop();
       this.accessibleCards(this.restrictedCards.pop());
-      console.log(
-        "length of accessible cards after moving to stack" +
-          this.accessibleCards.length
-      );
     }
   }
 
   updateCards() {
-    console.log(this.accessibleCards.length);
     if (this.accessibleCards.length === 0) {
       this.accessibleCards.push(this.restrictedCards.pop());
     }
