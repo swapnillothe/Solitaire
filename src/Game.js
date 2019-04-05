@@ -34,16 +34,29 @@ class Game {
     return this.deck;
   }
 
-  isDroppable(cardDetails, dropLocation) {
-    const card = JSON.parse(cardDetails);
-    if (this.deck.isAbleToDrop(card, dropLocation)) {
+  moveCardToStack(card, dragLocation, dropLocation) {
+    const pileNumber = dropLocation.split(" ")[1];
+    if (pileNumber && this.piles[pileNumber].isAbleToDrop(card)) {
+      if (this.piles[dragLocation]) {
+        this.piles[dragLocation].moveCardToStack();
+      }
       return true;
     }
-    const pileNumber = dropLocation.split(" ")[1];
-    if (pileNumber) {
-      return this.piles[pileNumber].isAbleToDrop(card);
-    }
     return false;
+  }
+
+  drop(cardDetails, dropLocation) {
+    const card = JSON.parse(cardDetails);
+
+    const dragLocation = card.draggingFrom.split(" ")[1];
+
+    if (this.deck.isAbleToDrop(card, dropLocation)) {
+      if (this.piles[dragLocation]) {
+        this.piles[dragLocation].moveCardToStack();
+      }
+      return true;
+    }
+    return this.moveCardToStack(card, dragLocation, dropLocation);
   }
 }
 

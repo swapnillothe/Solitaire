@@ -19,6 +19,24 @@ class Pile {
     return this.accessibleCards;
   }
 
+  moveCardToStack() {
+    if (this.accessibleCards.length === 0) {
+      this.accessibleCards.pop();
+      this.accessibleCards(this.restrictedCards.pop());
+      console.log(
+        "length of accessible cards after moving to stack" +
+          this.accessibleCards.length
+      );
+    }
+  }
+
+  updateCards() {
+    console.log(this.accessibleCards.length);
+    if (this.accessibleCards.length === 0) {
+      this.accessibleCards.push(this.restrictedCards.pop());
+    }
+  }
+
   isAbleToDrop(card) {
     if (
       this.accessibleCards[this.accessibleCards.length - 1].sequenceNumber -

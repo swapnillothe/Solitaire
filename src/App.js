@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import { stat } from "fs";
 
 const Card = function(props) {
   const { card, draggable } = props;
@@ -11,7 +10,7 @@ const Card = function(props) {
       onDragStart={drag.bind(null, card)}
       id={card.suitType + " " + card.sequenceNumber}
       style={{ color: card.colour }}
-      card={card}
+      // card={card}
     >
       {card.unicode}
     </div>
@@ -60,6 +59,8 @@ const allowDrop = function(game, ev) {
 
 const drag = function(card, ev) {
   ev.dataTransfer.setData("text", ev.target.id);
+  const draggingFrom = ev.target.parentNode.id;
+  card.draggingFrom = draggingFrom;
   ev.dataTransfer.setData("cardDetails", JSON.stringify(card));
 };
 
@@ -68,7 +69,7 @@ const drop = function(game, ev) {
   const dropLocation = ev.target.id;
   const data = ev.dataTransfer.getData("text");
   const card = ev.dataTransfer.getData("cardDetails");
-  if (game.isDroppable(card, dropLocation)) {
+  if (game.drop(card, dropLocation)) {
     ev.target.appendChild(document.getElementById(data));
   }
 };
@@ -164,12 +165,12 @@ class App extends React.Component {
   }
 
   handleDrop(e) {
+    drop(this.game, e);
     this.setState(state => {
       state.piles = this.game.piles;
       state.stack = this.game.stack;
       state.deck = this.game.deck;
     });
-    drop(this.game, e);
   }
 
   renderPage() {
@@ -179,9 +180,7 @@ class App extends React.Component {
           <div className="stack" id="stack">
             <Stack stack={this.game.getStack()} game={this.game} />
           </div>
-          <div className="deck" id="deck">
-            <Deck deck={this.game.getDeck()} game={this.game} />
-          </div>
+          <Deck deck={this.game.getDeck()} game={this.game} />
         </section>
         <div
           className="piles"
