@@ -19,16 +19,10 @@ class Pile {
     return this.accessibleCards;
   }
 
-  moveCardToStack() {
+  moveCardToDeck() {
     if (this.accessibleCards.length === 0) {
       this.accessibleCards.pop();
       this.accessibleCards(this.restrictedCards.pop());
-    }
-  }
-
-  updateCards() {
-    if (this.accessibleCards.length === 0) {
-      this.accessibleCards.push(this.restrictedCards.pop());
     }
   }
 

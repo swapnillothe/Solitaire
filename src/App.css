@@ -13,11 +13,10 @@ body {
 }
 
 .stack {
-  width: 100%;
+  width: 60%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  border: 1px solid black;
 }
 
 .piles {
@@ -26,11 +25,9 @@ body {
   justify-content: flex-start;
   flex-direction: column;
   margin: 0px;
-  border: 1px solid black;
 }
 
 .pile {
-  border: 1px solid black;
   display: flex;
   height: 90px;
 }
@@ -38,9 +35,8 @@ body {
 .deck {
   position: fixed;
   right: 0px;
-  top: 30%;
+  top: 0%;
   margin: 21px;
-  border: 1px solid black;
   background: white;
   display: flex;
   flex-direction: row;
