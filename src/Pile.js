@@ -22,7 +22,9 @@ class Pile {
   moveCardToDeck() {
     if (this.accessibleCards.length === 1) {
       this.accessibleCards.pop();
-      this.accessibleCards.push(this.restrictedCards.pop());
+      if (this.restrictedCards.length > 0) {
+        this.accessibleCards.push(this.restrictedCards.pop());
+      }
       return;
     }
     if (this.accessibleCards.length > 1) {
@@ -31,6 +33,10 @@ class Pile {
   }
 
   isAbleToDrop(card) {
+    if (card.sequenceNumber === 12 && this.accessibleCards.length === 0) {
+      this.accessibleCards.push(card);
+      return;
+    }
     const length = this.accessibleCards.length - 1;
     if (
       this.accessibleCards[length].sequenceNumber - 1 === card.sequenceNumber &&

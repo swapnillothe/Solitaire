@@ -18,7 +18,6 @@ class App extends React.Component {
 
   handleDrop(e) {
     drop(this, e);
-    // this.updateState();
   }
 
   updateState() {
@@ -28,6 +27,14 @@ class App extends React.Component {
       state.deck = this.game.deck;
     });
     ReactDOM.render(this.renderPage(), document.getElementById("game-root"));
+    let cards = (
+      <Cards
+        cards={this.state.openCards}
+        draggable={true}
+        classname="card-on-stack"
+      />
+    );
+    ReactDOM.render(cards, document.getElementById("open-card"));
   }
 
   getCard() {
@@ -47,7 +54,7 @@ class App extends React.Component {
       <div id="game-root">
         <section className="top-section">
           <div className="stack" id="stack">
-            <div className="clickable-div" onClick={this.getCard.bind(this)}>
+            <div className="stack-div" onClick={this.getCard.bind(this)}>
               <Card
                 card={{ colour: " black" }}
                 unicode={"\uD83C\uDCA0"}

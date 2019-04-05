@@ -27,6 +27,8 @@ body {
   display: flex;
   cursor: pointer;
   background-color: white;
+  height: fit-content;
+  width: fit-content;
 }
 
 .stack {
@@ -84,4 +86,10 @@ body {
 
 .top-section {
   height: 300px;
+}
+
+.open-card {
+  height: 140px;
+  width: 140px;
+  background-color: white;
 }
