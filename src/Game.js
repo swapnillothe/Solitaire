@@ -1,5 +1,5 @@
-import lodash from "lodash";
-import Pile from "./Pile.js";
+import lodash from 'lodash';
+import Pile from './Pile.js';
 
 class Game {
   constructor(deck, stack, cards) {
@@ -34,13 +34,13 @@ class Game {
   }
 
   moveCardBetweenPile(card, dragLocation, dropLocation) {
-    const draggingFrom = card.draggingFrom.split(" ")[0];
-    const pileNumber = dropLocation.split(" ")[1];
+    const draggingFrom = card.draggingFrom.split('_')[0];
+    const pileNumber = dropLocation.split('_')[1];
     if (pileNumber && this.piles[pileNumber].isAbleToDrop(card)) {
       if (this.piles[dragLocation]) {
         this.piles[dragLocation].moveCardToDeck();
       }
-      if (draggingFrom === "open-card") {
+      if (draggingFrom === 'open-card') {
         this.stack.updateStack(card);
       }
       return true;
@@ -50,13 +50,13 @@ class Game {
 
   drop(cardDetails, dropLocation) {
     const card = JSON.parse(cardDetails);
-    const dragLocation = card.draggingFrom.split(" ")[1];
-    const draggingFrom = card.draggingFrom.split(" ")[0];
+    const dragLocation = card.draggingFrom.split('_')[1];
+    const draggingFrom = card.draggingFrom.split('_')[0];
     if (this.deck.isAbleToDrop(card, dropLocation)) {
       if (this.piles[dragLocation]) {
         this.piles[dragLocation].moveCardToDeck();
       }
-      if (draggingFrom === "open-card") {
+      if (draggingFrom === 'open-card') {
         this.stack.updateStack(card);
       }
       return true;

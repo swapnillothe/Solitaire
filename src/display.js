@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
 const drag = function(card, ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
+  ev.dataTransfer.setData('text', ev.target.id);
   const draggingFrom = ev.target.parentNode.id;
   card.draggingFrom = draggingFrom;
-  ev.dataTransfer.setData("cardDetails", JSON.stringify(card));
+  ev.dataTransfer.setData('cardDetails', JSON.stringify(card));
 };
 
 const allowDrop = function(game, ev) {
@@ -16,7 +16,7 @@ const drop = function(app, ev) {
   ev.preventDefault();
   const dropLocation = ev.target.id;
   console.log(ev.target);
-  const card = ev.dataTransfer.getData("cardDetails");
+  const card = ev.dataTransfer.getData('cardDetails');
   game.drop(card, dropLocation);
   app.updateState();
 };
@@ -29,7 +29,7 @@ const Card = function(props) {
       className={classname}
       draggable={draggable}
       onDragStart={drag.bind(null, card)}
-      id={card.suitType + " " + card.sequenceNumber}
+      id={card.suitType + '_' + card.sequenceNumber}
       style={{ color: card.colour }}
     >
       {unicode}
@@ -65,7 +65,7 @@ const Piles = function(props) {
         cards={pile.getRestrictedCards()}
         draggable={false}
         key={index}
-        unicode={"\uD83C\uDCA0"}
+        unicode={'\uD83C\uDCA0'}
         classname={classname}
       />
     );
@@ -73,12 +73,12 @@ const Piles = function(props) {
       <Cards
         cards={pile.getAccessibleCards()}
         draggable={true}
-        key={"accessible" + index}
+        key={'accessible' + index}
         classname={classname}
       />
     );
     pilesHtml.push(
-      <div className="pile" id={"pile " + index} key={"pile" + index}>
+      <div className="pile" id={'pile_' + index} key={'pile' + index}>
         {pileHtml}
       </div>
     );
@@ -93,7 +93,7 @@ const Stack = function(props) {
     <Cards
       cards={stack.getAccessibleCards()}
       draggable={true}
-      key={"accessible-stack"}
+      key={'accessible-stack'}
       classname="card-on-stack"
     />
   );
@@ -107,7 +107,7 @@ const Suit = function(props) {
     <Cards
       cards={suit.getAccessibleCards()}
       draggable={true}
-      key={"accessible-suit"}
+      key={'accessible-suit'}
       classname="card-on-suit"
     />
   );
@@ -115,7 +115,7 @@ const Suit = function(props) {
     <Cards
       cards={suit.getRestrictedCards()}
       draggable={false}
-      key={"restricted-suit"}
+      key={'restricted-suit'}
       classname="card-on-suit"
     />
   );
@@ -127,25 +127,25 @@ const Deck = function(props) {
   const { heart, diamond, club, spade } = deck.getDeck();
   const deckHtml = [];
   deckHtml.push(
-    <div className="suit" key={"heart"} id="heart">
+    <div className="suit" key={'heart'} id="heart">
       heart
       <Suit suit={heart} />
     </div>
   );
   deckHtml.push(
-    <div className="suit" key={"diamond"} id="diamond">
+    <div className="suit" key={'diamond'} id="diamond">
       diamond
       <Suit suit={diamond} />
     </div>
   );
   deckHtml.push(
-    <div className="suit" key={"club"} id="club">
+    <div className="suit" key={'club'} id="club">
       club
       <Suit suit={club} />
     </div>
   );
   deckHtml.push(
-    <div className="suit" key={"spade"} id="spade">
+    <div className="suit" key={'spade'} id="spade">
       spade
       <Suit suit={spade} />
     </div>
