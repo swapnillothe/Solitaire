@@ -7,10 +7,10 @@ class Suit {
   }
 
   getRestrictedCards() {
-    return this.restrictedCards;
+    return this.restrictedCards.reverse();
   }
   getAccessibleCards() {
-    return this.accessibleCards;
+    return this.accessibleCards.reverse();
   }
 
   validateCard(card) {
@@ -21,7 +21,7 @@ class Suit {
         return true;
       }
     }
-    if (0 === card.sequenceNumber) {
+    if (1 === card.sequenceNumber) {
       this.accessibleCards = [card];
     }
     return true;

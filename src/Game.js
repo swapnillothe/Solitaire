@@ -11,9 +11,9 @@ class Game {
 
   startGame() {
     const cards = lodash.shuffle(this.cards);
-    for (let index = 0; index < 7; index++) {
+    for (let index = 1; index <= 7; index++) {
       const pile = new Pile();
-      const restrictedCards = cards.splice(0, index);
+      const restrictedCards = cards.splice(0, index - 1);
       pile.addRestrictedCards(restrictedCards);
       pile.addAccessibleCard(cards.splice(0, 1));
       this.piles.push(pile);
@@ -33,14 +33,14 @@ class Game {
     return this.deck;
   }
 
-  moveCardBetweenPile(card, dragLocation, dropLocation) {
-    const draggingFrom = card.draggingFrom.split('_')[0];
+  moveCardBetweenPile(card, dragLocation, dropLocation, parentDropLocation) {
+    // const draggingFrom = card.draggingFrom.split('_')[0];
     const pileNumber = dropLocation.split('_')[1];
     if (pileNumber && this.piles[pileNumber].isAbleToDrop(card)) {
       if (this.piles[dragLocation]) {
         this.piles[dragLocation].moveCardToDeck();
       }
-      if (draggingFrom === 'open-card') {
+      if (parentDropLocation === 'deck') {
         this.stack.updateStack(card);
       }
       return true;
@@ -48,21 +48,25 @@ class Game {
     return false;
   }
 
-  drop(cardDetails, dropLocation) {
+  drop(cardDetails, dropLocation, parentDropLocation) {
     const card = JSON.parse(cardDetails);
     const dragLocation = card.draggingFrom.split('_')[1];
-    const draggingFrom = card.draggingFrom.split('_')[0];
     if (this.deck.isAbleToDrop(card, dropLocation)) {
       if (this.piles[dragLocation]) {
         this.piles[dragLocation].moveCardToDeck();
       }
-      if (draggingFrom === 'open-card') {
+      if (parentDropLocation === 'deck') {
         this.stack.updateStack(card);
       }
       return true;
     }
 
-    return this.moveCardBetweenPile(card, dragLocation, dropLocation);
+    return this.moveCardBetweenPile(
+      card,
+      dragLocation,
+      dropLocation,
+      parentDropLocation
+    );
   }
 }
 

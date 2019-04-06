@@ -33,7 +33,7 @@ class Pile {
   }
 
   isAbleToDrop(card) {
-    if (card.sequenceNumber === 12 && this.accessibleCards.length === 0) {
+    if (card.sequenceNumber === 13 && this.accessibleCards.length === 0) {
       this.accessibleCards.push(card);
       return;
     }

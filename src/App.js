@@ -1,7 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./App.css";
-import { Deck, Piles, drop, allowDrop, Cards, Card } from "./display";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './App.css';
+import { Deck, Piles, drop, allowDrop, Cards, Card } from './display';
 
 class App extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class App extends React.Component {
       state.stack = this.game.stack;
       state.deck = this.game.deck;
     });
-    ReactDOM.render(this.renderPage(), document.getElementById("game-root"));
+    ReactDOM.render(this.renderPage(), document.getElementById('game-root'));
     let cards = (
       <Cards
         cards={this.state.openCards}
@@ -34,7 +34,7 @@ class App extends React.Component {
         classname="card-on-stack"
       />
     );
-    ReactDOM.render(cards, document.getElementById("open-card"));
+    ReactDOM.render(cards, document.getElementById('open-card'));
   }
 
   getCard() {
@@ -46,7 +46,7 @@ class App extends React.Component {
         classname="card-on-stack"
       />
     );
-    ReactDOM.render(cards, document.getElementById("open-card"));
+    ReactDOM.render(cards, document.getElementById('open-card'));
   }
 
   renderPage() {
@@ -56,8 +56,8 @@ class App extends React.Component {
           <div className="stack" id="stack">
             <div className="stack-div" onClick={this.getCard.bind(this)}>
               <Card
-                card={{ colour: " black" }}
-                unicode={"\uD83C\uDCA0"}
+                card={{ colour: ' black' }}
+                unicode={'\uD83C\uDCA0'}
                 draggable={false}
                 classname="card-on-stack"
               />
@@ -65,17 +65,18 @@ class App extends React.Component {
             <div id="open-card" className="open-card">
               <Cards
                 cards={this.state.openCards}
-                hello={"hello"}
                 draggable={true}
                 classname="card-on-stack"
               />
             </div>
           </div>
-          <Deck
-            deck={this.game.getDeck()}
-            app={this}
-            classname={"card-on-deck"}
-          />
+          <div className="deck-container">
+            <Deck
+              deck={this.game.getDeck()}
+              app={this}
+              classname={'card-on-deck'}
+            />
+          </div>
         </section>
         <div
           className="piles"
@@ -85,7 +86,7 @@ class App extends React.Component {
           <Piles
             piles={this.game.getPiles()}
             game={this.game}
-            classname={"pile-card"}
+            classname={'pile-card'}
           />
         </div>
       </div>

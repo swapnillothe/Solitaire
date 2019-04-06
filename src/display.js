@@ -15,9 +15,9 @@ const drop = function(app, ev) {
   const game = app.game;
   ev.preventDefault();
   const dropLocation = ev.target.id;
-  console.log(ev.target);
+  const parentDropLocation = ev.target.parentNode.id;
   const card = ev.dataTransfer.getData('cardDetails');
-  game.drop(card, dropLocation);
+  game.drop(card, dropLocation, parentDropLocation);
   app.updateState();
 };
 
