@@ -34,13 +34,15 @@ class Game {
   }
 
   moveCardBetweenPile(card, dragLocation, dropLocation, parentDropLocation) {
-    // const draggingFrom = card.draggingFrom.split('_')[0];
     const pileNumber = dropLocation.split('_')[1];
     if (pileNumber && this.piles[pileNumber].isAbleToDrop(card)) {
       if (this.piles[dragLocation]) {
         this.piles[dragLocation].moveCardToDeck();
       }
       if (parentDropLocation === 'deck') {
+        this.stack.updateStack(card);
+      }
+      if (card.draggingFrom === 'open-card') {
         this.stack.updateStack(card);
       }
       return true;

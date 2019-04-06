@@ -54,7 +54,11 @@ class App extends React.Component {
       <div id="game-root">
         <section className="top-section">
           <div className="stack" id="stack">
-            <div className="stack-div" onClick={this.getCard.bind(this)}>
+            <div
+              className="stack-div"
+              id="stack-div"
+              onClick={this.getCard.bind(this)}
+            >
               <Card
                 card={{ colour: ' black' }}
                 unicode={'\uD83C\uDCA0'}
