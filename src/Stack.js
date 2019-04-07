@@ -33,7 +33,6 @@ class Stack {
         this.drawnCards.splice(index, 1);
       }
     }
-    console.log(JSON.stringify(this.drawnCards));
   }
 
   getDrawnCards() {
