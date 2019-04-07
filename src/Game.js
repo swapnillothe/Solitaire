@@ -33,16 +33,13 @@ class Game {
     return this.deck;
   }
 
-  moveCardBetweenPile(card, dragLocation, dropLocation, parentDropLocation) {
-    const pileNumber = dropLocation.split('_')[1];
+  moveCardBetweenPile(card, dragLocation, parentDropLocation) {
+    const pileNumber = parentDropLocation.split('_')[1];
     if (pileNumber && this.piles[pileNumber].isAbleToDrop(card)) {
       if (this.piles[dragLocation]) {
         this.piles[dragLocation].moveCardToDeck();
       }
-      if (parentDropLocation === 'deck') {
-        this.stack.updateStack(card);
-      }
-      if (card.draggingFrom === 'open-card') {
+      if (parentDropLocation === 'deck' || card.draggingFrom === 'open-card') {
         this.stack.updateStack(card);
       }
       return true;
@@ -62,13 +59,7 @@ class Game {
       }
       return true;
     }
-
-    return this.moveCardBetweenPile(
-      card,
-      dragLocation,
-      dropLocation,
-      parentDropLocation
-    );
+    return this.moveCardBetweenPile(card, dragLocation, parentDropLocation);
   }
 }
 

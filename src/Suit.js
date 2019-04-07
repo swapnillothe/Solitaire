@@ -21,9 +21,15 @@ class Suit {
     return card.sequenceNumber === 1;
   }
 
-  dropValidCard(card) {
-    if (this.isFirstCard(card)) return (this.accessibleCards = [card]);
-    if (this.canCardPlaced(card)) return this.updateCards(card);
+  validateCard(card) {
+    if (this.isFirstCard(card)) {
+      this.accessibleCards = [card];
+      return true;
+    }
+    if (this.canCardPlaced(card)) {
+      this.updateCards(card);
+      return true;
+    }
   }
 
   updateCards(card) {
@@ -31,12 +37,8 @@ class Suit {
     this.accessibleCards = [card];
   }
 
-  isOfsameSuit(card) {
-    return this.suitType === card.suitType;
-  }
-
   dropCard(card) {
-    if (this.isOfsameSuit(card)) return this.dropValidCard(card);
+    return card.suitType === this.suitType && this.validateCard(card);
   }
 }
 
