@@ -20,16 +20,11 @@ class Pile {
   }
 
   moveCardToDeck() {
-    if (this.accessibleCards.length === 1) {
-      this.accessibleCards.pop();
-      if (this.restrictedCards.length > 0) {
-        this.accessibleCards.push(this.restrictedCards.pop());
-      }
-      return;
+    this.accessibleCards.pop();
+    if (this.restrictedCards.length > 0) {
+      this.accessibleCards.push(this.restrictedCards.pop());
     }
-    if (this.accessibleCards.length > 1) {
-      this.accessibleCards.pop();
-    }
+    return;
   }
 
   isAbleToDrop(card) {
