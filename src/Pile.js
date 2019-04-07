@@ -27,20 +27,22 @@ class Pile {
     return;
   }
 
-  isAbleToDrop(card) {
-    if (card.sequenceNumber === 13 && this.accessibleCards.length === 0) {
-      this.accessibleCards.push(card);
-      return;
-    }
+  isKing(card) {
+    return card.sequenceNumber === 13 && this.accessibleCards.length === 0;
+  }
+
+  canCardPlaced(card) {
     const length = this.accessibleCards.length - 1;
-    if (
+    return (
       this.accessibleCards[length].sequenceNumber - 1 === card.sequenceNumber &&
       this.accessibleCards[length].colour !== card.colour
-    ) {
-      this.accessibleCards.push(card);
-      return true;
-    }
-    return false;
+    );
+  }
+
+  isAbleToDrop(card) {
+    if (!this.isKing(card) && !this.canCardPlaced(card)) return false;
+    this.accessibleCards.push(card);
+    return true;
   }
 }
 
