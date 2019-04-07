@@ -13,17 +13,17 @@ class Suit {
     return this.accessibleCards.reverse();
   }
 
-  validateCard(card) {
-    if (this.accessibleCards.length === 1) {
-      if (this.accessibleCards[0].sequenceNumber + 1 === card.sequenceNumber) {
-        this.updateCards(card);
-        return true;
-      }
-    }
-    if (1 === card.sequenceNumber) {
-      this.accessibleCards = [card];
-    }
-    return true;
+  canCardPlaced(card) {
+    return this.accessibleCards[0].sequenceNumber + 1 === card.sequenceNumber;
+  }
+
+  isFirstCard(card) {
+    return card.sequenceNumber === 1;
+  }
+
+  dropValidCard(card) {
+    if (this.isFirstCard(card)) return (this.accessibleCards = [card]);
+    if (this.canCardPlaced(card)) return this.updateCards(card);
   }
 
   updateCards(card) {
@@ -31,8 +31,12 @@ class Suit {
     this.accessibleCards = [card];
   }
 
+  isOfsameSuit(card) {
+    return this.suitType === card.suitType;
+  }
+
   dropCard(card) {
-    return card.suitType === this.suitType && this.validateCard(card);
+    if (this.isOfsameSuit(card)) return this.dropValidCard(card);
   }
 }
 
