@@ -59,11 +59,17 @@ class Game {
       );
     }
 
-    if (source === 'open-card' && destination === 'deck') {
+    if (
+      (source === 'open-card' && destination === 'deck') ||
+      this.suits.includes(destination)
+    ) {
       return this.deck.addCard(card) && this.stack.removeCard(card);
     }
 
-    if (source.includes('pile') && destination === 'deck') {
+    if (
+      (source.includes('pile') && destination === 'deck') ||
+      this.suits.includes(destination)
+    ) {
       const pileNumber = card.draggingFrom.split('_')[1];
       const condition = this.deck.addCard(card);
       return condition && this.piles[pileNumber].removeCard(card);
