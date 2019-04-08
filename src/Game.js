@@ -7,7 +7,7 @@ class Game {
     this.deck = deck;
     this.stack = stack;
     this.cards = cards;
-    this.suits = ['diamond', 'heart', 'spade', 'club'];
+    this.suits = ['diamond', 'heart', 'spade', 'club', 'deck'];
   }
 
   startGame() {
@@ -34,76 +34,76 @@ class Game {
     return this.deck;
   }
 
+  stackToPile(card, pileNumber) {
+    return this.piles[pileNumber].addCard(card) && this.stack.removeCard(card);
+  }
+
+  pileToDeck(card, pileNumber) {
+    return this.deck.addCard(card) && this.piles[pileNumber].removeCard(card);
+  }
+
+  isKingOnPile(card) {
+    return (
+      card.sequenceNumber === 13 && card.secondaryDestination.includes('pile')
+    );
+  }
+
+  pileToPile(card, sourcePileNumber, destinationPileNumber) {
+    const destinationPile = this.piles[destinationPileNumber];
+    const sourcePile = this.piles[sourcePileNumber];
+    return destinationPile.addCard(card) && sourcePile.removeCard(card);
+  }
+
   drop(card, destination) {
     const source = card.draggingFrom;
+
     if (source === 'open-card' && destination.includes('pile')) {
       const pileNumber = destination.split('_')[1];
-      return (
-        this.piles[pileNumber].addCard(card) && this.stack.removeCard(card)
-      );
+      return this.stackToPile(card, pileNumber);
     }
 
     if (source.includes('pile') && card.sequenceNumber === 13) {
       const sourcePileNumber = card.draggingFrom.split('_')[1];
       const destinationPileNumber = card.secondaryDestination.split('_')[1];
-      if (sourcePileNumber === destinationPileNumber) return false;
+
       if (this.piles[sourcePileNumber].isCardInBetween(card)) {
         let cardsToMove = this.piles[sourcePileNumber].getCardsToMove(card);
-        return this.piles[destinationPileNumber].addAccessibleCards(
-          cardsToMove
-        );
+        const destinationPile = this.piles[destinationPileNumber];
+        return destinationPile.addAccessibleCards(cardsToMove);
       }
-      return (
-        this.piles[destinationPileNumber].addCard(card) &&
-        this.piles[sourcePileNumber].removeCard(card)
-      );
+
+      return this.pileToPile(card, sourcePileNumber, destinationPileNumber);
     }
 
-    if (
-      (source === 'open-card' && destination === 'deck') ||
-      this.suits.includes(destination)
-    ) {
+    if (source === 'open-card' && this.suits.includes(destination)) {
       return this.deck.addCard(card) && this.stack.removeCard(card);
     }
 
-    if (
-      (source.includes('pile') && destination === 'deck') ||
-      this.suits.includes(destination)
-    ) {
+    if (source.includes('pile') && this.suits.includes(destination)) {
       const pileNumber = card.draggingFrom.split('_')[1];
-      const condition = this.deck.addCard(card);
-      return condition && this.piles[pileNumber].removeCard(card);
+      return this.pileToDeck(card, pileNumber);
     }
 
     if (source.includes('pile') && destination.includes('pile')) {
       const sourcePileNumber = card.draggingFrom.split('_')[1];
       const destinationPileNumber = destination.split('_')[1];
-      if (sourcePileNumber === destinationPileNumber) return false;
+
       if (this.piles[sourcePileNumber].isCardInBetween(card)) {
-        let cardsToMove = this.piles[sourcePileNumber].getCardsToMove(card);
-        return this.piles[destinationPileNumber].addAccessibleCards(
-          cardsToMove
-        );
+        const destinationPile = this.piles[destinationPileNumber];
+        const cardsToMove = this.piles[sourcePileNumber].getCardsToMove(card);
+        return destinationPile.addAccessibleCards(cardsToMove);
       }
-      return (
-        this.piles[destinationPileNumber].addCard(card) &&
-        this.piles[sourcePileNumber].removeCard(card)
-      );
+      return this.pileToPile(card, sourcePileNumber, destinationPileNumber);
     }
 
     if (this.suits.includes(source) && destination.includes('pile')) {
       const pileNumber = destination.split('_')[1];
-      return this.deck.removeCard(card) && this.piles[pileNumber].addCard(card);
+      return this.piles[pileNumber].addCard(card) && this.deck.removeCard(card);
     }
 
-    if (
-      card.secondaryDestination.includes('pile') &&
-      card.sequenceNumber === 13
-    ) {
+    if (this.isKingOnPile(card)) {
       const pileNumber = card.secondaryDestination.split('_')[1];
-      return (
-        this.piles[pileNumber].addCard(card) && this.stack.removeCard(card)
-      );
+      return this.stackToPile(card, pileNumber);
     }
   }
 

@@ -11,8 +11,11 @@ class Pile {
   }
 
   addAccessibleCards(cards) {
-    this.accessibleCards = this.accessibleCards.concat(cards);
-    return true;
+    if (this.isKing(cards[0]) || this.canCardPlaced(cards[0])) {
+      this.accessibleCards = this.accessibleCards.concat(cards);
+      return true;
+    }
+    return false;
   }
 
   getRestrictedCards() {
@@ -44,7 +47,6 @@ class Pile {
 
   addCard(card) {
     if (this.isKing(card) || this.canCardPlaced(card)) {
-      console.log('in add cards', this.canCardPlaced(card));
       return this.accessibleCards.push(card);
     }
     return false;
