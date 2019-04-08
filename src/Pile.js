@@ -22,7 +22,7 @@ class Pile {
     return this.accessibleCards;
   }
 
-  removeCard() {
+  removeCard(card) {
     this.accessibleCards.pop();
     if (this.restrictedCards.length > 0) {
       this.accessibleCards.push(this.restrictedCards.pop());
@@ -35,17 +35,19 @@ class Pile {
   }
 
   canCardPlaced(card) {
-    const length = this.accessibleCards.length - 1;
+    const lastCard = this.accessibleCards[this.accessibleCards.length - 1];
     return (
-      this.accessibleCards[length].sequenceNumber - 1 === card.sequenceNumber &&
-      this.accessibleCards[length].colour !== card.colour
+      lastCard.sequenceNumber - 1 === card.sequenceNumber &&
+      lastCard.colour !== card.colour
     );
   }
 
   addCard(card) {
     if (this.isKing(card) || this.canCardPlaced(card)) {
+      console.log('in add cards', this.canCardPlaced(card));
       return this.accessibleCards.push(card);
     }
+    return false;
   }
 
   isCardInBetween(card) {
