@@ -19,7 +19,11 @@ const drop = function(app, ev) {
   const cardDetails = ev.dataTransfer.getData('cardDetails');
   const card = JSON.parse(cardDetails);
   card.secondaryDestination = secondaryDestination;
+
   game.drop(card, parentDropLocation);
+  if (game.hasWon()) {
+    alert('you won the game');
+  }
   app.updateState();
 };
 

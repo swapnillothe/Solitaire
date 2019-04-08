@@ -26,7 +26,7 @@ class Suit {
       this.accessibleCards = [card];
       return true;
     }
-    if (this.accessibleCards.length > 1 && this.canCardPlaced(card)) {
+    if (this.accessibleCards.length >= 1 && this.canCardPlaced(card)) {
       this.updateCards(card);
       return true;
     }
@@ -47,6 +47,9 @@ class Suit {
       this.accessibleCards.pop();
       this.accessibleCards.push(this.restrictedCards.pop());
     }
+  }
+  getCount() {
+    return this.accessibleCards.length + this.restrictedCards.length;
   }
 }
 

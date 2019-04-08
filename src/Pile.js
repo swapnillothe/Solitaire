@@ -10,6 +10,11 @@ class Pile {
     this.accessibleCards.push(card[0]);
   }
 
+  addAccessibleCards(cards) {
+    this.accessibleCards = this.accessibleCards.concat(cards);
+    return true;
+  }
+
   getRestrictedCards() {
     return this.restrictedCards;
   }
@@ -41,6 +46,28 @@ class Pile {
     if (this.isKing(card) || this.canCardPlaced(card)) {
       return this.accessibleCards.push(card);
     }
+  }
+
+  isCardInBetween(card) {
+    let lastCard = this.accessibleCards[this.accessibleCards.length - 1];
+    if (
+      lastCard.sequenceNumber === card.sequenceNumber &&
+      lastCard.suitType === card.suitType
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  getCardsToMove(card) {
+    const index = this.accessibleCards.findIndex(cardDetails => {
+      return cardDetails.sequenceNumber === card.sequenceNumber;
+    });
+    const cards = this.accessibleCards.splice(index);
+    if (this.restrictedCards.length >= 1) {
+      this.accessibleCards.push(this.restrictedCards.pop());
+    }
+    return cards;
   }
 }
 

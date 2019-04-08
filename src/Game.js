@@ -36,19 +36,26 @@ class Game {
 
   drop(card, destination) {
     const source = card.draggingFrom;
-
     if (source === 'open-card' && destination.includes('pile')) {
       const pileNumber = destination.split('_')[1];
       return (
         this.piles[pileNumber].addCard(card) && this.stack.removeCard(card)
       );
     }
-    
+
     if (source.includes('pile') && card.sequenceNumber === 13) {
       const sourcePileNumber = card.draggingFrom.split('_')[1];
       const destinationPileNumber = card.secondaryDestination.split('_')[1];
-      const add = this.piles[destinationPileNumber].addCard(card);
-      return add && this.piles[sourcePileNumber].removeCard(card);
+      if (this.piles[sourcePileNumber].isCardInBetween(card)) {
+        let cardsToMove = this.piles[sourcePileNumber].getCardsToMove(card);
+        return this.piles[destinationPileNumber].addAccessibleCards(
+          cardsToMove
+        );
+      }
+      return (
+        this.piles[destinationPileNumber].addCard(card) &&
+        this.piles[sourcePileNumber].removeCard(card)
+      );
     }
 
     if (source === 'open-card' && destination === 'deck') {
@@ -57,15 +64,22 @@ class Game {
 
     if (source.includes('pile') && destination === 'deck') {
       const pileNumber = card.draggingFrom.split('_')[1];
-      return this.deck.addCard(card) && this.piles[pileNumber].removeCard(card);
+      const condition = this.deck.addCard(card);
+      return condition && this.piles[pileNumber].removeCard(card);
     }
 
     if (source.includes('pile') && destination.includes('pile')) {
       const sourcePileNumber = card.draggingFrom.split('_')[1];
       const destinationPileNumber = destination.split('_')[1];
+      if (this.piles[sourcePileNumber].isCardInBetween(card)) {
+        let cardsToMove = this.piles[sourcePileNumber].getCardsToMove(card);
+        return this.piles[destinationPileNumber].addAccessibleCards(
+          cardsToMove
+        );
+      }
       return (
-        this.piles[destinationPileNumber].addCard(card) &&
-        this.piles[sourcePileNumber].removeCard(card)
+        this.piles[sourcePileNumber].removeCard(card) &&
+        this.piles[destinationPileNumber].addCard(card)
       );
     }
 
@@ -83,6 +97,10 @@ class Game {
         this.piles[pileNumber].addCard(card) && this.stack.removeCard(card)
       );
     }
+  }
+
+  hasWon() {
+    return this.deck.hasWon();
   }
 }
 
