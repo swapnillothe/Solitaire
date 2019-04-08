@@ -14,10 +14,12 @@ const allowDrop = function(game, ev) {
 const drop = function(app, ev) {
   const game = app.game;
   ev.preventDefault();
-  const dropLocation = ev.target.id;
+  const secondaryDestination = ev.target.id;
   const parentDropLocation = ev.target.parentNode.id;
-  const card = ev.dataTransfer.getData('cardDetails');
-  game.drop(card, dropLocation, parentDropLocation);
+  const cardDetails = ev.dataTransfer.getData('cardDetails');
+  const card = JSON.parse(cardDetails);
+  card.secondaryDestination = secondaryDestination;
+  game.drop(card, parentDropLocation);
   app.updateState();
 };
 
@@ -111,14 +113,14 @@ const Suit = function(props) {
       classname="card-on-suit"
     />
   );
-  suitHtml.push(
-    <Cards
-      cards={suit.getRestrictedCards()}
-      draggable={false}
-      key={'restricted-suit'}
-      classname="card-on-suit"
-    />
-  );
+  // suitHtml.push(
+  //   <Cards
+  //     cards={suit.getRestrictedCards()}
+  //     draggable={false}
+  //     key={'restricted-suit'
+  //     classname="card-on-suit"
+  //   />
+  // );
   return suitHtml;
 };
 

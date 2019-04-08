@@ -9,9 +9,7 @@ class Pile {
   addAccessibleCard(card) {
     this.accessibleCards.push(card[0]);
   }
-  addRestrictedCard(card) {
-    this.restrictedCards.push(card);
-  }
+
   getRestrictedCards() {
     return this.restrictedCards;
   }
@@ -19,12 +17,12 @@ class Pile {
     return this.accessibleCards;
   }
 
-  moveCardToDeck() {
+  removeCard() {
     this.accessibleCards.pop();
     if (this.restrictedCards.length > 0) {
       this.accessibleCards.push(this.restrictedCards.pop());
     }
-    return;
+    return true;
   }
 
   isKing(card) {
@@ -39,10 +37,10 @@ class Pile {
     );
   }
 
-  isAbleToDrop(card) {
-    if (!this.isKing(card) && !this.canCardPlaced(card)) return false;
-    this.accessibleCards.push(card);
-    return true;
+  addCard(card) {
+    if (this.isKing(card) || this.canCardPlaced(card)) {
+      return this.accessibleCards.push(card);
+    }
   }
 }
 

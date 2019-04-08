@@ -7,6 +7,7 @@ class Game {
     this.deck = deck;
     this.stack = stack;
     this.cards = cards;
+    this.suits = ['diamond', 'heart', 'spade', 'club'];
   }
 
   startGame() {
@@ -33,33 +34,55 @@ class Game {
     return this.deck;
   }
 
-  moveCardBetweenPile(card, dragLocation, parentDropLocation) {
-    const pileNumber = parentDropLocation.split('_')[1];
-    if (pileNumber && this.piles[pileNumber].isAbleToDrop(card)) {
-      if (this.piles[dragLocation]) {
-        this.piles[dragLocation].moveCardToDeck();
-      }
-      if (parentDropLocation === 'deck' || card.draggingFrom === 'open-card') {
-        this.stack.updateStack(card);
-      }
-      return true;
-    }
-    return false;
-  }
+  drop(card, destination) {
+    const source = card.draggingFrom;
 
-  drop(cardDetails, dropLocation, parentDropLocation) {
-    const card = JSON.parse(cardDetails);
-    const dragLocation = card.draggingFrom.split('_')[1];
-    if (this.deck.isAbleToDrop(card, dropLocation)) {
-      if (this.piles[dragLocation]) {
-        this.piles[dragLocation].moveCardToDeck();
-      }
-      if (parentDropLocation === 'deck') {
-        this.stack.updateStack(card);
-      }
-      return true;
+    if (source === 'open-card' && destination.includes('pile')) {
+      const pileNumber = destination.split('_')[1];
+      return (
+        this.piles[pileNumber].addCard(card) && this.stack.removeCard(card)
+      );
     }
-    return this.moveCardBetweenPile(card, dragLocation, parentDropLocation);
+    
+    if (source.includes('pile') && card.sequenceNumber === 13) {
+      const sourcePileNumber = card.draggingFrom.split('_')[1];
+      const destinationPileNumber = card.secondaryDestination.split('_')[1];
+      const add = this.piles[destinationPileNumber].addCard(card);
+      return add && this.piles[sourcePileNumber].removeCard(card);
+    }
+
+    if (source === 'open-card' && destination === 'deck') {
+      return this.deck.addCard(card) && this.stack.removeCard(card);
+    }
+
+    if (source.includes('pile') && destination === 'deck') {
+      const pileNumber = card.draggingFrom.split('_')[1];
+      return this.deck.addCard(card) && this.piles[pileNumber].removeCard(card);
+    }
+
+    if (source.includes('pile') && destination.includes('pile')) {
+      const sourcePileNumber = card.draggingFrom.split('_')[1];
+      const destinationPileNumber = destination.split('_')[1];
+      return (
+        this.piles[destinationPileNumber].addCard(card) &&
+        this.piles[sourcePileNumber].removeCard(card)
+      );
+    }
+
+    if (this.suits.includes(source) && destination.includes('pile')) {
+      const pileNumber = destination.split('_')[1];
+      return this.deck.removeCard(card) && this.piles[pileNumber].addCard(card);
+    }
+
+    if (
+      card.secondaryDestination.includes('pile') &&
+      card.sequenceNumber === 13
+    ) {
+      const pileNumber = card.secondaryDestination.split('_')[1];
+      return (
+        this.piles[pileNumber].addCard(card) && this.stack.removeCard(card)
+      );
+    }
   }
 }
 

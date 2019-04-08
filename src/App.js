@@ -31,7 +31,7 @@ class App extends React.Component {
       <Cards
         cards={this.state.openCards}
         draggable={true}
-        classname='card-on-stack'
+        classname="card-on-stack"
       />
     );
     ReactDOM.render(cards, document.getElementById('open-card'));
@@ -43,7 +43,7 @@ class App extends React.Component {
       <Cards
         cards={this.state.openCards}
         draggable={true}
-        classname='card-on-stack'
+        classname="card-on-stack"
       />
     );
     ReactDOM.render(cards, document.getElementById('open-card'));
@@ -51,31 +51,31 @@ class App extends React.Component {
 
   renderPage() {
     return (
-      <div id='game-root'>
-        <section className='top-section'>
-          <div className='stack' id='stack'>
+      <div id="game-root">
+        <section className="top-section">
+          <div className="stack" id="stack">
             <div
-              className='stack-div'
-              id='stack-div'
+              className="stack-div"
+              id="stack-div"
               onClick={this.getCard.bind(this)}
             >
               <Card
                 card={{ colour: ' black' }}
                 unicode={'\uD83C\uDCA0'}
                 draggable={false}
-                id='waste-pile'
-                classname='card-on-stack'
+                id="waste-pile"
+                classname="card-on-stack"
               />
             </div>
-            <div id='open-card' className='open-card'>
+            <div id="open-card" className="open-card">
               <Cards
                 cards={this.state.openCards}
                 draggable={true}
-                classname='card-on-stack'
+                classname="card-on-stack"
               />
             </div>
           </div>
-          <div className='deck-container'>
+          <div className="deck-container">
             <Deck
               deck={this.game.getDeck()}
               app={this}
@@ -84,7 +84,7 @@ class App extends React.Component {
           </div>
         </section>
         <div
-          className='piles'
+          className="piles"
           onDrop={this.handleDrop.bind(this)}
           onDragOver={allowDrop.bind(null, this.game)}
         >

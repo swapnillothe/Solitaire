@@ -13,7 +13,7 @@ class Stack {
     return this.accessibleCards;
   }
 
-  updateStack(cardToBeRemove) {
+  removeCard(cardToBeRemove) {
     for (let index = 0; index < this.accessibleCards.length; index++) {
       const element = this.accessibleCards[index];
       if (
@@ -33,6 +33,7 @@ class Stack {
         this.drawnCards.splice(index, 1);
       }
     }
+    return true;
   }
 
   getDrawnCards() {

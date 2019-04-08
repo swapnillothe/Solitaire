@@ -43,6 +43,8 @@ body {
   cursor: pointer;
   background-color: white;
   position: absolute;
+  height: fit-content;
+  width: fit-content;
 }
 
 .piles {
@@ -80,10 +82,12 @@ body {
 
 .card-on-suit {
   position: absolute;
-  font-size: 190px;
+  font-size: 130px;
   height: 200px;
   cursor: pointer;
   background-color: white;
+  height: fit-content;
+  width: fit-content;
 }
 
 .top-section {

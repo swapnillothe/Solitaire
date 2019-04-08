@@ -3,19 +3,19 @@ class Deck {
     this.deck = { heart, spade, diamond, club };
   }
 
-  addCard(card, cardSuit) {
-    this.deck[cardSuit].addCard(card);
-  }
-
   getDeck() {
     return this.deck;
   }
 
-  isAbleToDrop(cardDetails, dropLocation) {
-    if (this.deck[dropLocation]) {
-      return this.deck[dropLocation].dropCard(cardDetails);
+  addCard(card) {
+    if (this.deck[card.suitType]) {
+      return this.deck[card.suitType].addCard(card);
     }
     return false;
+  }
+
+  removeCard(card) {
+    this.deck[card.suitType].removeCard(card);
   }
 }
 
