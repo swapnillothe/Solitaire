@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
-import { Deck, Piles, drop, allowDrop, Cards, Card } from './display';
+import {
+  playSound,
+  Deck,
+  Piles,
+  drop,
+  allowDrop,
+  Cards,
+  Card
+} from './display';
 import flip from './card_flip.mp3';
 import draw from './stock_flip.mp3';
-
-const playSound = function(sound) {
-  let audio = new Audio(sound);
-  audio.play();
-};
 
 class App extends React.Component {
   constructor(props) {
@@ -54,8 +57,8 @@ class App extends React.Component {
         classname="card-on-stack"
       />
     );
-    // cards.classList.add('trasition');
-    ReactDOM.render(cards, document.getElementById('open-card'));
+    const openCards = document.getElementById('open-card');
+    ReactDOM.render(cards, openCards);
     playSound(draw);
   }
 

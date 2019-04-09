@@ -1,7 +1,11 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import win from './win.mp3';
 
 const drag = function(card, ev) {
-  ev.dataTransfer.setData('text', ev.target.id);
+  const cardDiv = ev.target;
+  cardDiv.style = { background: 'white' };
+  ev.dataTransfer.setData('text', cardDiv.id);
   const draggingFrom = ev.target.parentNode.id;
   card.draggingFrom = draggingFrom;
   ev.dataTransfer.setData('cardDetails', JSON.stringify(card));
@@ -9,6 +13,26 @@ const drag = function(card, ev) {
 
 const allowDrop = function(game, ev) {
   ev.preventDefault();
+};
+
+const newGame = function() {
+  window.location = '/';
+};
+
+const Win = function() {
+  return (
+    <div className={'win-div'}>
+      YOU WON
+      <button className={'click-me'} onClick={newGame} name="continue">
+        continue
+      </button>
+    </div>
+  );
+};
+
+const playSound = function(sound) {
+  let audio = new Audio(sound);
+  audio.play();
 };
 
 const drop = function(app, ev) {
@@ -21,10 +45,11 @@ const drop = function(app, ev) {
   card.secondaryDestination = secondaryDestination;
 
   game.drop(card, parentDropLocation);
-  if (game.hasWon()) {
-    alert('You won the game');
-  }
   app.updateState();
+  if (game.hasWon()) {
+    ReactDOM.render(<Win />, document.getElementById('root'));
+    playSound(win);
+  }
 };
 
 const Card = function(props) {
@@ -162,4 +187,4 @@ const Deck = function(props) {
   );
 };
 
-export { Card, Cards, Piles, Deck, Stack, drop, allowDrop };
+export { Card, Cards, Piles, Deck, Stack, drop, allowDrop, playSound };
