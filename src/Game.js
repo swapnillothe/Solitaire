@@ -56,7 +56,6 @@ class Game {
 
   drop(card, destination) {
     const source = card.draggingFrom;
-
     if (source === 'open-card' && destination.includes('pile')) {
       const pileNumber = destination.split('_')[1];
       return this.stackToPile(card, pileNumber);

@@ -61,7 +61,7 @@ class App extends React.Component {
             >
               <Card
                 card={{ colour: ' black' }}
-                unicode={'\uD83C\uDCA0'}
+                unicode="./cards/back.png"
                 draggable={false}
                 id="waste-pile"
                 classname="card-on-stack"

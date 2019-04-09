@@ -3,6 +3,7 @@ body {
   width: 100%;
   height: 100%;
   overflow: scroll;
+  background-color: black;
 }
 
 .card {
@@ -18,17 +19,17 @@ body {
 }
 
 .pile-card {
-  padding: auto;
-  font-size: 130px;
-  margin-top: -60px;
+  margin-top: -155px;
   line-height: 0.7;
   position: relative;
   text-align: center;
   display: flex;
   cursor: pointer;
   background-color: white;
-  height: fit-content;
-  width: fit-content;
+  height: 185px;
+  width: 120px;
+  border: 1px solid #f2e4e4;
+  border-radius: 3px;
 }
 
 .stack {
@@ -39,12 +40,13 @@ body {
 }
 
 .card-on-stack {
-  font-size: 130px;
   cursor: pointer;
-  background-color: white;
   position: absolute;
-  height: fit-content;
-  width: fit-content;
+  background-color: white;
+  height: 185px;
+  width: 120px;
+  border: 1px solid #f2e4e4;
+  border-radius: 3px;
 }
 
 .piles {
@@ -61,11 +63,11 @@ body {
 }
 
 .deck {
-  background: white;
+  background: black;
   display: flex;
   flex-direction: row;
   height: 100%;
-  justify-content: space-evenly;
+  justify-content: space-around;
   width: 100%;
 }
 
@@ -73,21 +75,24 @@ body {
   border: 1px solid gray;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
-  width: 300px;
-  height: 200px;
+  height: 185px;
+  width: 120px;
   cursor: pointer;
   background-color: white;
-  margin: 20px;
+  display: flex;
+  border-radius: 3px;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .card-on-suit {
-  position: absolute;
-  font-size: 130px;
-  height: 200px;
   cursor: pointer;
+  position: absolute;
   background-color: white;
-  height: fit-content;
-  width: fit-content;
+  height: 185px;
+  width: 120px;
+  border: 1px solid #f2e4e4;
+  border-radius: 3px;
 }
 
 .top-section {

@@ -22,7 +22,7 @@ const drop = function(app, ev) {
 
   game.drop(card, parentDropLocation);
   if (game.hasWon()) {
-    alert('you won the game');
+    alert('You won the game');
   }
   app.updateState();
 };
@@ -31,15 +31,14 @@ const Card = function(props) {
   let { card, draggable, unicode, classname } = props;
   if (!unicode) unicode = card.unicode;
   return (
-    <div
+    <img
       className={classname}
       draggable={draggable}
-      onDragStart={drag.bind(null, card)}
       id={card.suitType + '_' + card.sequenceNumber}
-      style={{ color: card.colour }}
-    >
-      {unicode}
-    </div>
+      onDragStart={drag.bind(null, card)}
+      src={require('' + unicode)}
+      alt={unicode}
+    />
   );
 };
 
@@ -71,7 +70,7 @@ const Piles = function(props) {
         cards={pile.getRestrictedCards()}
         draggable={false}
         key={index}
-        unicode={'\uD83C\uDCA0'}
+        unicode="./cards/back.png"
         classname={classname}
       />
     );
@@ -117,14 +116,6 @@ const Suit = function(props) {
       classname="card-on-suit"
     />
   );
-  // suitHtml.push(
-  //   <Cards
-  //     cards={suit.getRestrictedCards()}
-  //     draggable={false}
-  //     key={'restricted-suit'
-  //     classname="card-on-suit"
-  //   />
-  // );
   return suitHtml;
 };
 
