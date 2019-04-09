@@ -27,7 +27,7 @@ class Pile {
 
   removeCard(card) {
     this.accessibleCards.pop();
-    if (this.restrictedCards.length > 0) {
+    if (this.restrictedCards.length > 0 && this.accessibleCards.length === 0) {
       this.accessibleCards.push(this.restrictedCards.pop());
     }
     return true;
