@@ -61,7 +61,11 @@ class Game {
       return this.stackToPile(card, pileNumber);
     }
 
-    if (source.includes('pile') && card.sequenceNumber === 13) {
+    if (
+      source.includes('pile') &&
+      card.sequenceNumber === 13 &&
+      card.secondaryDestination.includes('pile')
+    ) {
       const sourcePileNumber = card.draggingFrom.split('_')[1];
       const destinationPileNumber = card.secondaryDestination.split('_')[1];
 

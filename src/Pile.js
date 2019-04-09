@@ -68,7 +68,7 @@ class Pile {
       return cardDetails.sequenceNumber === card.sequenceNumber;
     });
     const cards = this.accessibleCards.splice(index);
-    if (this.restrictedCards.length >= 1) {
+    if (this.restrictedCards.length >= 1 && this.accessibleCards.length === 0) {
       this.accessibleCards.push(this.restrictedCards.pop());
     }
     return cards;

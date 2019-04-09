@@ -70,7 +70,7 @@ const Piles = function(props) {
         cards={pile.getRestrictedCards()}
         draggable={false}
         key={index}
-        unicode="./cards/back.png"
+        unicode='./cards/back.png'
         classname={classname}
       />
     );
@@ -83,7 +83,7 @@ const Piles = function(props) {
       />
     );
     pilesHtml.push(
-      <div className="pile" id={'pile_' + index} key={'pile' + index}>
+      <div className='pile' id={'pile_' + index} key={'pile' + index}>
         {pileHtml}
       </div>
     );
@@ -94,14 +94,16 @@ const Piles = function(props) {
 const Stack = function(props) {
   const { stack } = props;
   const stackHtml = [];
-  stackHtml.push(
-    <Cards
-      cards={stack.getAccessibleCards()}
-      draggable={true}
-      key={'accessible-stack'}
-      classname="card-on-stack"
-    />
-  );
+  if (stack.getAccessibleCards().length > 0) {
+    stackHtml.push(
+      <Cards
+        cards={stack.getAccessibleCards()}
+        draggable={true}
+        key={'accessible-stack'}
+        classname='card-on-stack'
+      />
+    );
+  }
   return stackHtml;
 };
 
@@ -113,7 +115,7 @@ const Suit = function(props) {
       cards={suit.getAccessibleCards()}
       draggable={true}
       key={'accessible-suit'}
-      classname="card-on-suit"
+      classname='card-on-suit'
     />
   );
   return suitHtml;
@@ -124,33 +126,33 @@ const Deck = function(props) {
   const { heart, diamond, club, spade } = deck.getDeck();
   const deckHtml = [];
   deckHtml.push(
-    <div className="suit" key={'heart'} id="heart">
+    <div className='suit' key={'heart'} id='heart'>
       heart
       <Suit suit={heart} />
     </div>
   );
   deckHtml.push(
-    <div className="suit" key={'diamond'} id="diamond">
+    <div className='suit' key={'diamond'} id='diamond'>
       diamond
       <Suit suit={diamond} />
     </div>
   );
   deckHtml.push(
-    <div className="suit" key={'club'} id="club">
+    <div className='suit' key={'club'} id='club'>
       club
       <Suit suit={club} />
     </div>
   );
   deckHtml.push(
-    <div className="suit" key={'spade'} id="spade">
+    <div className='suit' key={'spade'} id='spade'>
       spade
       <Suit suit={spade} />
     </div>
   );
   return (
     <div
-      className="deck"
-      id="deck"
+      className='deck'
+      id='deck'
       onDrop={drop.bind(null, app)}
       onDragOver={allowDrop.bind(null, app.game)}
     >
