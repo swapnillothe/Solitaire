@@ -70,7 +70,7 @@ const Piles = function(props) {
         cards={pile.getRestrictedCards()}
         draggable={false}
         key={index}
-        unicode='./cards/back.png'
+        unicode="./cards/back.png"
         classname={classname}
       />
     );
@@ -83,7 +83,7 @@ const Piles = function(props) {
       />
     );
     pilesHtml.push(
-      <div className='pile' id={'pile_' + index} key={'pile' + index}>
+      <div className="pile" id={'pile_' + index} key={'pile' + index}>
         {pileHtml}
       </div>
     );
@@ -100,7 +100,7 @@ const Stack = function(props) {
         cards={stack.getAccessibleCards()}
         draggable={true}
         key={'accessible-stack'}
-        classname='card-on-stack'
+        classname="card-on-stack"
       />
     );
   }
@@ -115,7 +115,7 @@ const Suit = function(props) {
       cards={suit.getAccessibleCards()}
       draggable={true}
       key={'accessible-suit'}
-      classname='card-on-suit'
+      classname="card-on-suit"
     />
   );
   return suitHtml;
@@ -126,33 +126,34 @@ const Deck = function(props) {
   const { heart, diamond, club, spade } = deck.getDeck();
   const deckHtml = [];
   deckHtml.push(
-    <div className='suit' key={'heart'} id='heart'>
-      heart
+    <div className="suit" key={'heart'} id="heart" style={{ color: 'red' }}>
+      ♥
       <Suit suit={heart} />
     </div>
   );
+
   deckHtml.push(
-    <div className='suit' key={'diamond'} id='diamond'>
-      diamond
-      <Suit suit={diamond} />
-    </div>
-  );
-  deckHtml.push(
-    <div className='suit' key={'club'} id='club'>
-      club
+    <div className="suit" key={'club'} id="club">
+      ♣
       <Suit suit={club} />
     </div>
   );
   deckHtml.push(
-    <div className='suit' key={'spade'} id='spade'>
-      spade
+    <div className="suit" key={'diamond'} id="diamond" style={{ color: 'red' }}>
+      ♦
+      <Suit suit={diamond} />
+    </div>
+  );
+  deckHtml.push(
+    <div className="suit" key={'spade'} id="spade">
+      ♠
       <Suit suit={spade} />
     </div>
   );
   return (
     <div
-      className='deck'
-      id='deck'
+      className="deck"
+      id="deck"
       onDrop={drop.bind(null, app)}
       onDragOver={allowDrop.bind(null, app.game)}
     >

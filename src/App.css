@@ -3,7 +3,7 @@ body {
   width: 100%;
   height: 100%;
   overflow: scroll;
-  background-color: black;
+  background-image: url('./cards/Shroom\ Haze.jpg');
 }
 
 .card {
@@ -16,6 +16,7 @@ body {
   display: flex;
   cursor: pointer;
   background-color: white;
+  box-shadow: 10px 15px 22px -11px rgba(0, 0, 0, 0.61);
 }
 
 .pile-card {
@@ -29,6 +30,7 @@ body {
   height: 185px;
   width: 120px;
   border: 1px solid #f2e4e4;
+  box-shadow: 10px 15px 22px -11px rgba(0, 0, 0, 0.61);
   border-radius: 3px;
 }
 
@@ -43,6 +45,7 @@ body {
   cursor: pointer;
   position: absolute;
   background-color: white;
+  box-shadow: 10px 15px 22px -11px rgba(0, 0, 0, 0.61);
   height: 185px;
   width: 120px;
   border: 1px solid #f2e4e4;
@@ -63,22 +66,23 @@ body {
 }
 
 .deck {
-  background: black;
   display: flex;
   flex-direction: row;
+  padding-top: 15px;
   height: 100%;
   justify-content: space-around;
   width: 100%;
 }
 
 .suit {
-  border: 1px solid gray;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
   height: 185px;
   width: 120px;
+  font-size: 80px;
   cursor: pointer;
   background-color: white;
+  box-shadow: 10px 15px 22px -11px rgba(0, 0, 0, 0.61);
   display: flex;
   border-radius: 3px;
   justify-content: space-around;
@@ -92,6 +96,7 @@ body {
   height: 185px;
   width: 120px;
   border: 1px solid #f2e4e4;
+  box-shadow: 10px 15px 22px -11px rgba(0, 0, 0, 0.61);
   border-radius: 3px;
 }
 
@@ -110,4 +115,11 @@ body {
 .deck-container {
   width: 65%;
   height: 100%;
+}
+
+.transition {
+  transform: rotate(360deg);
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  -webkit-transition-timing-function: linear;
 }
