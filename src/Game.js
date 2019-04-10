@@ -68,10 +68,16 @@ class Game {
     ) {
       const sourcePileNumber = card.draggingFrom.split('_')[1];
       const destinationPileNumber = card.secondaryDestination.split('_')[1];
+      const destinationPile = this.piles[destinationPileNumber];
 
       if (this.piles[sourcePileNumber].isCardInBetween(card)) {
-        let cardsToMove = this.piles[sourcePileNumber].getCardsToMove(card);
-        const destinationPile = this.piles[destinationPileNumber];
+        const cardsToMove = this.piles[sourcePileNumber].getCardsToMove(
+          destinationPile.accessibleCards[
+            destinationPile.accessibleCards.length - 1
+          ],
+          card,
+          destinationPile.accessibleCards.length
+        );
         return destinationPile.addAccessibleCards(cardsToMove);
       }
 
@@ -93,8 +99,14 @@ class Game {
 
       if (this.piles[sourcePileNumber].isCardInBetween(card)) {
         const destinationPile = this.piles[destinationPileNumber];
-        const cardsToMove = this.piles[sourcePileNumber].getCardsToMove(card);
-        return destinationPile.addAccessibleCards(cardsToMove);
+        const cardsToMove = this.piles[sourcePileNumber].getCardsToMove(
+          destinationPile.accessibleCards[
+            destinationPile.accessibleCards.length - 1
+          ],
+          card,
+          destinationPile.accessibleCards.length
+        );
+        return cardsToMove && destinationPile.addAccessibleCards(cardsToMove);
       }
       return this.pileToPile(card, sourcePileNumber, destinationPileNumber);
     }

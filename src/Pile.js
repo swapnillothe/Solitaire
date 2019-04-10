@@ -39,6 +39,9 @@ class Pile {
 
   canCardPlaced(card) {
     const lastCard = this.accessibleCards[this.accessibleCards.length - 1];
+    console.log(JSON.stringify(lastCard), 'this is a last card');
+    console.log(JSON.stringify(card), 'this is a card');
+
     return (
       lastCard.sequenceNumber - 1 === card.sequenceNumber &&
       lastCard.colour !== card.colour
@@ -63,15 +66,38 @@ class Pile {
     return true;
   }
 
-  getCardsToMove(card) {
-    const index = this.accessibleCards.findIndex(cardDetails => {
-      return cardDetails.sequenceNumber === card.sequenceNumber;
-    });
-    const cards = this.accessibleCards.splice(index);
-    if (this.restrictedCards.length >= 1 && this.accessibleCards.length === 0) {
-      this.accessibleCards.push(this.restrictedCards.pop());
+  canPlaced(card1, card2) {
+    return (
+      card1.sequenceNumber === card2.sequenceNumber - 1 &&
+      card1.colour !== card2.colour
+    );
+  }
+
+  isKingCard(card, cardsLength) {
+    return card.sequenceNumber === 13 && cardsLength === 0;
+  }
+
+  getCardsToMove(card, sourceCard, cardsLength) {
+    if (
+      this.isKingCard(sourceCard, cardsLength) ||
+      this.canPlaced(sourceCard, card)
+    ) {
+      let index = 0;
+      if (this.accessibleCards.length > 0) {
+        index = this.accessibleCards.findIndex(cardDetails => {
+          return (
+            cardDetails.sequenceNumber === sourceCard.sequenceNumber &&
+            cardDetails.colour === sourceCard.colour
+          );
+        });
+      }
+      const cards = this.accessibleCards.splice(index);
+      if (this.restrictedCards.length >= 1) {
+        this.accessibleCards.push(this.restrictedCards.pop());
+      }
+      return cards;
     }
-    return cards;
+    return false;
   }
 }
 
