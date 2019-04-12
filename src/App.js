@@ -60,6 +60,9 @@ class App extends React.Component {
     const openCards = document.getElementById('open-card');
     ReactDOM.render(cards, openCards);
     playSound(draw);
+    if (this.state.openCards.length === 0) {
+      document.getElementById('stack-div').onClick = null;
+    }
   }
 
   renderPage() {

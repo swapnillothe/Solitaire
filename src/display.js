@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom';
 import win from './win.mp3';
 
 const drag = function(card, ev) {
-  const cardDiv = ev.target;
-  cardDiv.style = { background: 'white' };
-  ev.dataTransfer.setData('text', cardDiv.id);
+  const cardDiv = ev.target.id;
+  ev.dataTransfer.setData('text', cardDiv);
   const draggingFrom = ev.target.parentNode.id;
   card.draggingFrom = draggingFrom;
   ev.dataTransfer.setData('cardDetails', JSON.stringify(card));
@@ -119,16 +118,14 @@ const Piles = function(props) {
 const Stack = function(props) {
   const { stack } = props;
   const stackHtml = [];
-  if (stack.getAccessibleCards().length > 0) {
-    stackHtml.push(
-      <Cards
-        cards={stack.getAccessibleCards()}
-        draggable={true}
-        key={'accessible-stack'}
-        classname="card-on-stack"
-      />
-    );
-  }
+  stackHtml.push(
+    <Cards
+      cards={stack.getAccessibleCards()}
+      draggable={true}
+      key={'accessible-stack'}
+      classname="card-on-stack"
+    />
+  );
   return stackHtml;
 };
 

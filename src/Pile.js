@@ -39,8 +39,6 @@ class Pile {
 
   canCardPlaced(card) {
     const lastCard = this.accessibleCards[this.accessibleCards.length - 1];
-    console.log(JSON.stringify(lastCard), 'this is a last card');
-    console.log(JSON.stringify(card), 'this is a card');
 
     return (
       lastCard.sequenceNumber - 1 === card.sequenceNumber &&
@@ -92,7 +90,10 @@ class Pile {
         });
       }
       const cards = this.accessibleCards.splice(index);
-      if (this.restrictedCards.length >= 1) {
+      if (
+        this.restrictedCards.length >= 1 &&
+        this.accessibleCards.length === 0
+      ) {
         this.accessibleCards.push(this.restrictedCards.pop());
       }
       return cards;
