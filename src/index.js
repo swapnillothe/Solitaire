@@ -1,11 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope */
-import Game from './Game.js';
+import Game from './model/Game';
 import ReactDom from 'react-dom';
 import React from 'react';
-import Deck from './Deck';
-import Suit from './Suit';
-import CardStore from './CardStore';
-import Stack from './Stack';
+import Deck from './model/Deck';
+import Suit from './model/Suit';
+import CardStore from './model/CardStore';
+import Stack from './model/Stack';
 import App from './App';
 
 const deck = new Deck(
