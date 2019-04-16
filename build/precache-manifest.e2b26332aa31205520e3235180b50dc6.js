@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "86d439cf96b38d90d9af95b429dcb509",
-    "url": "/Solitaire/static/media/9_of_hearts.86d439cf.png"
+    "revision": "2d201ad6ed0f22153ad7",
+    "url": "/Solitaire/static/css/main.40716a3f.chunk.css"
   },
   {
-    "revision": "f8aff3fa8a1bfe9186c3",
-    "url": "/Solitaire/static/css/main.28cb9414.chunk.css"
+    "revision": "2d201ad6ed0f22153ad7",
+    "url": "/Solitaire/static/js/main.dc1ac3ec.chunk.js"
   },
   {
     "revision": "4be603165e67fc25657f",
@@ -92,8 +92,8 @@ self.__precacheManifest = [
     "url": "/Solitaire/static/media/9_of_diamonds.6bc3ba13.png"
   },
   {
-    "revision": "f8aff3fa8a1bfe9186c3",
-    "url": "/Solitaire/static/js/main.4c6d29f4.chunk.js"
+    "revision": "86d439cf96b38d90d9af95b429dcb509",
+    "url": "/Solitaire/static/media/9_of_hearts.86d439cf.png"
   },
   {
     "revision": "9a05178883f2308f91886fdd2ac87e40",
@@ -180,7 +180,7 @@ self.__precacheManifest = [
     "url": "/Solitaire/static/media/victory.6dcaf092.gif"
   },
   {
-    "revision": "d36c66c172b09d9bacca0d962e1d33a4",
+    "revision": "b391109f8d975c6b547d936ba638a67d",
     "url": "/Solitaire/index.html"
   }
 ];
