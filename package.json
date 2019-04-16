@@ -10,7 +10,7 @@
     "react-scripts": "2.1.8"
   },
   "scripts": {
-    "start": "npm install && npm run build && react-scripts start",
+    "start": "npm install && npm run build && npm run deploy && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
